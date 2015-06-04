@@ -1,5 +1,5 @@
 package client;
 
-public class Client {
-	//test qiufengyu1024@gmail.com
+public class Client{ 
+	
 }
