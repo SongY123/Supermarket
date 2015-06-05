@@ -2,8 +2,6 @@ package entity;
 
 import java.io.Serializable;
 
-
-
 @SuppressWarnings("serial")
 public class Goods implements Serializable{
 	private int goodid;//…Ã∆∑±‡∫≈
