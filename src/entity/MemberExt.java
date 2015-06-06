@@ -7,9 +7,8 @@ import util.FileTools;
 import util.SocketTools;
 import util.Tools;
 
-/*
- * 会员信息操作类
- */
+//会员信息操作类
+
 public class MemberExt {
 	//会员信息文件 
 	private static String path_member=Tools.getValue(DEFINE.SYS_PATH)+Tools.getValue(DEFINE.SYS_DATA_MEMBER);
