@@ -5,8 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import java.util.Date;
-
+@SuppressWarnings("serial")
 public class LoginUI extends JFrame {
 	//Components
 	JLabel head;
@@ -19,6 +18,10 @@ public class LoginUI extends JFrame {
 	private static final Font fontc = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN+Font.BOLD,14);
 	private static final Font fonte = new Font("Calibri",Font.PLAIN,14);
 	
+	//Information
+	String id;
+	String pwd;
+	
 	public LoginUI() {
 		setSize(380, 290);
 		//background
@@ -27,8 +30,7 @@ public class LoginUI extends JFrame {
 		icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT));
 		head.setBounds(0, 0, 380, 290);  
         head.setHorizontalAlignment(0);  
-        head.setIcon(icon); 
-        
+        head.setIcon(icon);         
         
         //Username and password
         idLabel = new JLabel(" µÇÂ¼ÕËºÅ");
@@ -64,14 +66,45 @@ public class LoginUI extends JFrame {
         
         add(head);
         
+        //display
+        this.setTitle("µÇÂ¼");
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        
+        //Listeners
+        idTextField.addMouseListener(
+        	new MouseAdapter() {
+        		public void mouseClicked(MouseEvent me) {
+        			idTextField.setText("");
+        		}
+        	}
+        );
+        
+        loginIn.addActionListener(
+			new ActionListener() {
+				@SuppressWarnings("deprecation")
+				public void actionPerformed(ActionEvent e) {
+					id = idTextField.getText();
+					pwd = pwdField.getText();
+					System.out.println(id+"\t"+pwd);
+				}
+			}
+		); 
+        
+        cancle.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setInvisible();
+				}
+			}
+    	); 
+        
+        
 	}
 	
-	public static void main(String[] args) {		
-		LoginUI frame = new LoginUI();
-		frame.setTitle("µÇÂ¼");
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+	public void setInvisible() {
+		this.setVisible(false);
 	}
 
 }
