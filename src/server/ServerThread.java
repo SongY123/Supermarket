@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import com.pb.entity.Datas;
-import com.pb.entity.GoodsExt;
-import com.pb.entity.MemberExt;
-import com.pb.entity.UserExt;
-import com.pb.util.DEFINE;
+import entity.Datas;
+import entity.GoodsExt;
+import entity.MemberExt;
+import entity.UserExt;
+import util.DEFINE;
 
 
 public class ServerThread extends Thread{

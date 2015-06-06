@@ -21,6 +21,7 @@ public class Tools {
 	 * 根据key获得资源文件的value
 	 */
 	public static String getValue(String key){
+		System.out.println(key);
 		return p.getProperty(key);
 	}
 }

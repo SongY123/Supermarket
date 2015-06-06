@@ -5,7 +5,8 @@ import util.Message;
 public class Client{ 
 	
 	public static void main(String[] args) {
-		LoginUI lui = new LoginUI();
+		//LoginUI lui = new LoginUI();
+		runClient();
 	}
 	
 	public static void runClient(){
