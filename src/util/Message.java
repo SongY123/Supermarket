@@ -2,9 +2,9 @@ package util;
 
 public class Message {
 	public static final String APP_WELCOM="欢迎使用";
-	public static final String APP_NAME="青鸟超市管理系统";
-	public static final String APP_NAME_SALER="青鸟超市收银系统";
-	public static final String APP_NAME_STORE="青鸟超市库存管理系统";
+	public static final String APP_NAME="NJU超市管理系统";
+	public static final String APP_NAME_SALER="NJU超市收银系统";
+	public static final String APP_NAME_STORE="NJU超市库存管理系统";
 	public static final String OPERATOR_SUCCESS="操作成功\n";
 	public static final String OPERATOR_FAIL="操作失败,无此商品\n";
 	
