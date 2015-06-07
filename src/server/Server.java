@@ -44,7 +44,7 @@ public class Server {
 		        serverSocket = new ServerSocket(serverPort);
 		        while(true){
 		        	Socket socket =  serverSocket.accept();//接收连接请求
-		        	System.out.println("一个用户已连接");
+		        	System.out.println("A new Client connected...");
 		        	new ServerThread(socket).start();
 		        }
 		  }
@@ -58,18 +58,6 @@ public class Server {
 		//DemoData.init();
 		System.out.println("Server On...");
 		new Server();
-		/*try {
-			serversocket=new ServerSocket();
-			while(true){
-				Socket socket=serversocket.accept();
-				Thread serverThread=new ServerThread(socket);
-				serverThread.start();
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 }
