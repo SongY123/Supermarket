@@ -13,7 +13,7 @@ public class Server {
 	private ServerSocket serverSocket;
 	private int ClientCount = 0;
 	private int serverPort = 8000;//服务器端口
-	private Connection connection;//连接
+	private Users users;//会员数据库
 	public Server(){
 		try {
 				linkDatabase();
@@ -25,31 +25,8 @@ public class Server {
 	public void linkDatabase() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver");
 		System.out.println("Driver loaded!");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
+		users = new Users();
 		System.out.println("Database connected!");
-		FindWord=connection.prepareStatement("select * from wordlist where word = ? ");
-			FindUserPassword = connection.prepareStatement("select * from user where id = ? and password = ?");
-			FindUser = connection.prepareStatement("select * from user where id = ?");
-			FindFriends = connection.prepareStatement("select * from friend where ida = ?");
-			SetUser = connection.prepareStatement("update user set ip = ? ,port = ? where id = ?");
-			InsertWord = connection.prepareStatement("insert into wordlist values(?,0,0,0)");
-			InsertUser = connection.prepareStatement("insert into user values(?,?,?,\"127.0.0.1\",0)");
-			InsertFriends = connection.prepareStatement("insert into friend values(?,?)");
-			LikeWordBaidu = connection.prepareStatement("update wordlist set baidu = baidu+1 Where word = ?");
-			DislikeWordBaidu = connection.prepareStatement("update wordlist set baidu = baidu-1 Where word = ?");
-			LikeWordYoudao = connection.prepareStatement("update wordlist set youdao = youdao+1 Where word = ?");
-			DislikeWordYoudao = connection.prepareStatement("update wordlist set youdao = youdao-1 Where word = ?");
-			LikeWordBing = connection.prepareStatement("update wordlist set bing = bing+1 Where word = ?");
-			DislikeWordBing = connection.prepareStatement("update wordlist set bing = bing-1 Where word = ?");
-			FindLikeBaidu = connection.prepareStatement("select*from likebaidu where id = ? and word = ?");
-			FindLikeYoudao = connection.prepareStatement("select*from likeyoudao where id = ? and word = ?");
-			FindLikeBing = connection.prepareStatement("select*from likebing where id = ? and word = ?");
-			InsertLikeBaidu = connection.prepareStatement("Insert likebaidu values(?,?)");
-			InsertLikeYoudao = connection.prepareStatement("Insert likeyoudao values(?,?)");
-			InsertLikeBing = connection.prepareStatement("Insert likebing values(?,?)");
-			DropLikeBaidu = connection.prepareStatement("delete from likebaidu where id = ? and word = ?");
-			DropLikeYoudao = connection.prepareStatement("delete from likeyoudao where id = ? and word = ?");
-			DropLikeBing = connection.prepareStatement("delete from likebing where id = ? and word = ?");
 	  }
 	public void listen(){
 		  try {
