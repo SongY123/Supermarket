@@ -28,12 +28,20 @@ public class SimpleUI extends JFrame{
 	JLabel listTitle;
 	JTextArea tarea;
 	ScrollPane spanel;
-	JLabel sumLabel;
-	JLabel sumNumLabel;
+	JLabel sumAmountLabel;
+	JLabel sumMoneyLabel;
+	JLabel sumAmountText;
+	JLabel sumMoneyText;
+	JButton commit;
+	JLabel shouldMoneyLabel;
+	JLabel shouldMoneyText;
+	JLabel inputMoneyLabel;
+	JTextField inputMoneyText;
 	JLabel s1;
 	JLabel s2;
 	JLabel s3;
 	JLabel s4;
+	JLabel s5;
 	
 	//constants
 	private static final Font fontc = new Font("微软雅黑",Font.PLAIN+Font.BOLD,20);
@@ -188,7 +196,62 @@ public class SimpleUI extends JFrame{
 		s4.setBounds(0, 520, 600, 20);
 		bg.add(s4);
 		
-		//Sum
+		//Sum Label
+		// JButton commit;
+		sumAmountLabel = new JLabel("数量合计： ");
+		sumAmountLabel.setFont(fontc2);
+		sumAmountLabel.setBounds(60, 540, 150, 25);
+		
+		sumAmountText = new JLabel();
+		sumAmountText.setFont(fontc2);
+		sumAmountText.setText("0");
+		//有geText方法，从String转换成Integer，加数量后在重新setText
+		sumAmountText.setBounds(150, 540, 100, 25);
+		
+		sumMoneyLabel = new JLabel("金额合计： ￥ ");
+		sumMoneyLabel.setFont(fontc2);
+		sumMoneyLabel.setBounds(310, 540, 150, 25);
+		
+		sumMoneyText = new JLabel();
+		sumMoneyText.setFont(fontc2);
+		sumMoneyText.setText("0000.00");
+		//有geText方法，从String转换成Integer，加数量后在重新setText
+		sumMoneyText.setBounds(425, 540, 160, 25);
+		
+		// Money should be
+		shouldMoneyLabel = new JLabel("应收金额： ￥ ");
+		shouldMoneyLabel.setFont(fontc2);
+		shouldMoneyLabel.setBounds(60, 570, 150, 25);
+		
+		shouldMoneyText = new JLabel();
+		shouldMoneyText.setFont(fontc2);
+		shouldMoneyText.setText("0000.00");
+		shouldMoneyText.setBounds(175, 570, 160, 25);
+		
+		
+		
+		//add components
+		bg.add(sumAmountLabel);
+		bg.add(sumAmountText);
+		bg.add(sumMoneyLabel);
+		bg.add(sumMoneyText);
+		bg.add(shouldMoneyLabel);
+		bg.add(shouldMoneyText);
+		
+		//split line4
+		s5 = new JLabel(splitline);
+		s5.setBounds(0, 595, 600, 20);
+		bg.add(s5);
+		
+		
+		
+		
+		//commit button
+		commit = new JButton("结算");
+		commit.setFont(fontc1);
+		commit.setBounds(430, 630, 80, 28);
+		bg.add(commit);				
+		
 		
 		add(bg);		
 		this.setTitle("收银系统");
@@ -201,12 +264,36 @@ public class SimpleUI extends JFrame{
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String id = goodIdInfo.getText();
-						String num = goodNumInfo.getText();
+						String num = goodNumInfo.getText();	
 						if(!(id.equals("")||num.equals(""))) {
-							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");
+							//先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
+							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");						
+							//更新数量与总计
+							int numincrement = Integer.parseInt(num);
+							String oldnum = sumAmountText.getText();
+							int currentnum = numincrement+Integer.parseInt(oldnum);
+							String curnum = String.valueOf(currentnum);
+							// System.out.println(curnum);
+							sumAmountText.setText(curnum);
+							// sumMoneythesame
+							double moneyincrement = 1.90;//Updata with 小计
+							String oldmoney = sumMoneyText.getText();
+							double currentmoney = moneyincrement+Double.parseDouble(oldmoney);
+							String curmoney = String.format("%.2f", currentmoney);
+							// System.out.println(curmoney);
+							sumMoneyText.setText(curmoney);
+							// Should money:
+							// discount get from database!
+							double discount = 0.9;
+							double shouldmoney = currentmoney*discount;
+							String curshouldmoney = String.format("%.2f", shouldmoney);
+							shouldMoneyText.setText(curshouldmoney);
+							
+
 						}
 						goodIdInfo.setText("");
 						goodNumInfo.setText("");
+						
 					}
 				}
 			); 
@@ -219,6 +306,16 @@ public class SimpleUI extends JFrame{
 					}
 				}
 			); 
+		
+		commit.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//Send message to server, and check
+						// new Check UI
+					}
+				}
+			); 
+		
 	}
 
 	
@@ -245,8 +342,6 @@ public class SimpleUI extends JFrame{
 		else {
 			temp = temp+"Saturday";
 		}
-
-		
 		return temp;
 	}
 }
