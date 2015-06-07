@@ -13,10 +13,10 @@ public class Employee {
 	private Connection connection;
 	public Employee(){
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","Employee");
-			FindEmployee = connection.prepareStatement("select * from user where id = ?");
-			InsertEmployee = connection.prepareStatement("insert into user values(?,?,?)");
-			VerifyEmployee = connection.prepareStatement("select * from user where id = ? and password = ?");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
+			FindEmployee = connection.prepareStatement("select * from employee where id = ?");
+			InsertEmployee = connection.prepareStatement("insert into employee values(?,?,?)");
+			VerifyEmployee = connection.prepareStatement("select * from employee where id = ? and password = ?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

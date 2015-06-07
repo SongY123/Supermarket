@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import server.ServerThread;
 import server.Users;
 import server.Employee;
+import server.Goods;
+import server.Trade;
 
 public class Server {
 	private ServerSocket serverSocket;
