@@ -16,6 +16,7 @@ public class Server {
 	private ServerSocket serverSocket;
 	private int ClientCount = 0;
 	private int serverPort = 8000;//服务器端口
+	private Connection connection;
 	private Users users;//会员数据库
 	public Server(){
 		try {
@@ -27,8 +28,10 @@ public class Server {
 	}
 	public void linkDatabase() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
 		System.out.println("Driver loaded!");
-		users = new Users();
+		users = new Users(connection);
+		
 		System.out.println("Database connected!");
 	  }
 	public void listen(){

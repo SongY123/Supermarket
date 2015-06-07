@@ -11,9 +11,9 @@ public class Employee {
 	private PreparedStatement InsertEmployee;//插入用户,帐号，密码，等级
 	private PreparedStatement VerifyEmployee;//验证用户名和密码
 	private Connection connection;
-	public Employee(){
+	public Employee(Connection connection){
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
+			this.connection = connection;
 			FindEmployee = connection.prepareStatement("select * from employee where id = ?");
 			InsertEmployee = connection.prepareStatement("insert into employee values(?,?,?)");
 			VerifyEmployee = connection.prepareStatement("select * from employee where id = ? and password = ?");

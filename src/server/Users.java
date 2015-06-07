@@ -10,9 +10,9 @@ public class Users {
 	private PreparedStatement FindUser;//查找用户
 	private PreparedStatement InsertUser;//插入用户,帐号，会员等级
 	private Connection connection;
-	public Users(){
+	public Users(Connection connection){
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
+			this.connection = connection;
 			FindUser = connection.prepareStatement("select * from user where id = ?");
 			InsertUser = connection.prepareStatement("insert into user values(?,?)");
 		} catch (SQLException e) {

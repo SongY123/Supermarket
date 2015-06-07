@@ -10,9 +10,9 @@ public class Trade {
 	private PreparedStatement FindTrade;//查找交易记录
 	private PreparedStatement InsertTrade;//插入交易记录,用户名，交易金额，交易时间
 	private Connection connection;
-	public Trade(){
+	public Trade(Connection connection){
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
+			this.connection = connection;
 			FindTrade = connection.prepareStatement("select * from trade where id = ?");
 			InsertTrade = connection.prepareStatement("insert into trade values(?,?,?)");
 		} catch (SQLException e) {
