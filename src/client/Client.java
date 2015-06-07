@@ -4,11 +4,13 @@ import entity.UserExt;
 import util.InputTools;
 import util.Message;
 public class Client{ 
-	
+
 	public static void main(String[] args) {
-		//LoginUI lui = new LoginUI();
 		//runClient();
-		SimpleUI sui = new SimpleUI();
+		// SimpleUI sui = new SimpleUI();
+		@SuppressWarnings("unused")
+		//ManagerUI mui = new ManagerUI();
+		LoginUI lui = new LoginUI();
 	}
 	
 	public static void runClient(){

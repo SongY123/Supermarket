@@ -9,8 +9,8 @@ import java.util.Date;
 
 
 
-public class SimpleUI extends JFrame{
-	
+@SuppressWarnings("serial")
+public class SimpleUI extends JFrame {
 	//Components
 	JLabel bg;
 	JLabel headTitle;
@@ -32,16 +32,21 @@ public class SimpleUI extends JFrame{
 	JLabel sumMoneyLabel;
 	JLabel sumAmountText;
 	JLabel sumMoneyText;
-	JButton commit;
 	JLabel shouldMoneyLabel;
 	JLabel shouldMoneyText;
 	JLabel inputMoneyLabel;
 	JTextField inputMoneyText;
+	JLabel changeLabel;
+	JLabel changeText;
 	JLabel s1;
 	JLabel s2;
 	JLabel s3;
 	JLabel s4;
 	JLabel s5;
+	Timer timer;
+	
+	JButton commit;
+	JButton next;
 	
 	//constants
 	private static final Font fontc = new Font("微软雅黑",Font.PLAIN+Font.BOLD,20);
@@ -56,12 +61,12 @@ public class SimpleUI extends JFrame{
 	
 	
 	@SuppressWarnings("deprecation")
-	public SimpleUI() {		
-		setSize(600, 800);
+	public SimpleUI(String id) {	
+		setSize(600, 730);
 		bg = new JLabel();
 		//ImageIcon icon = new ImageIcon("images/bg1.jpg");
 		//icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT));
-		bg.setBounds(0, 0, 600, 800);  
+		bg.setBounds(0, 0, 600, 730);  
         bg.setHorizontalAlignment(0);  
        // bg.setIcon(icon); 
         
@@ -79,9 +84,11 @@ public class SimpleUI extends JFrame{
 		int daynum = d.getDate();
 		int hour = d.getHours();
 		int minute = d.getMinutes();
+		int second = d.getSeconds();
 		String ds = String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(daynum);
 		String hh = "";
 		String mm = "";
+		String ss = "";
 		if(hour<10) {
 			hh = "0"+ String.valueOf(hour);
 		}
@@ -94,12 +101,18 @@ public class SimpleUI extends JFrame{
 		else {
 			mm = String.valueOf(minute);
 		}
-		String ds2 = hh+" : "+mm;
+		if(second<10) {
+			ss = "0"+String.valueOf(second);
+		}
+		else {
+			ss = String.valueOf(second);
+		}
+		String ds2 = hh+" : "+mm + " : "+ss;
 		String ds3 = getDayString(day);
 		String ddd = ds+"    "+ds2+"    "+ds3;		
 		dataLabel = new JLabel(ddd);
 		dataLabel.setFont(fonte);
-		dataLabel.setBounds(200, 40, 200, 20);
+		dataLabel.setBounds(190, 40, 220, 20);
 		bg.add(dataLabel);
 		
 		//split line
@@ -112,7 +125,7 @@ public class SimpleUI extends JFrame{
 		userLabel.setFont(fontc1);
 		userLabel.setBounds(25, 80, 75, 25);
 		userInfo = new JTextField();
-		userInfo.setText("101");
+		userInfo.setText(id);
 		userInfo.setFont(fonte);
 		userInfo.setEditable(false);
 		userInfo.setBounds(85, 80, 125, 25);
@@ -124,7 +137,7 @@ public class SimpleUI extends JFrame{
 		customerLabel.setFont(fontc1);
 		customerLabel.setBounds(300, 80, 105, 25);
 		customerInfo = new JTextField();
-		customerInfo.setText("1001");
+		customerInfo.setText("");
 		customerInfo.setFont(fonte);
 		customerInfo.setEditable(true);
 		customerInfo.setBounds(410, 80, 125, 25);
@@ -185,7 +198,7 @@ public class SimpleUI extends JFrame{
 		tarea = new JTextArea();
 		tarea.setEditable(false);
 		tarea.setFont(fontc1);
-		tarea.append(" 编号\t名称\t\t数量\t单价\t小计\n"+splitline2+"\n");
+		tarea.setText(" 编号\t名称\t\t数量\t单价\t小计\n"+splitline2+"\n");
 		spanel = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
 		spanel.add(tarea);
 		spanel.setBounds(0, 260, 600, 250);
@@ -197,7 +210,6 @@ public class SimpleUI extends JFrame{
 		bg.add(s4);
 		
 		//Sum Label
-		// JButton commit;
 		sumAmountLabel = new JLabel("数量合计： ");
 		sumAmountLabel.setFont(fontc2);
 		sumAmountLabel.setBounds(60, 540, 150, 25);
@@ -228,7 +240,24 @@ public class SimpleUI extends JFrame{
 		shouldMoneyText.setText("0000.00");
 		shouldMoneyText.setBounds(175, 570, 160, 25);
 		
+		//实收金额
+		inputMoneyLabel = new JLabel("实收金额： ￥ ");
+		inputMoneyLabel.setFont(fontc2);
+		inputMoneyLabel.setBounds(310, 570, 150, 25);
+		inputMoneyText = new JTextField();
+		inputMoneyText.setFont(fonte);
+		inputMoneyText.setEditable(true);
+		inputMoneyText.setBounds(425, 570, 130, 25);		
 		
+		//找零相关
+		changeLabel = new JLabel("找零金额： ￥ ");
+		changeLabel.setFont(fontc2);
+		changeLabel.setBounds(60, 600, 150, 25);
+		
+		changeText = new JLabel();
+		changeText.setFont(fontc2);
+		changeText.setText("0.00");
+		changeText.setBounds(175, 600, 160, 25);
 		
 		//add components
 		bg.add(sumAmountLabel);
@@ -237,23 +266,35 @@ public class SimpleUI extends JFrame{
 		bg.add(sumMoneyText);
 		bg.add(shouldMoneyLabel);
 		bg.add(shouldMoneyText);
-		
-		//split line4
-		s5 = new JLabel(splitline);
-		s5.setBounds(0, 595, 600, 20);
-		bg.add(s5);
-		
-		
-		
+		bg.add(inputMoneyLabel);
+		bg.add(inputMoneyText);
+		bg.add(changeLabel);
+		bg.add(changeText);
 		
 		//commit button
 		commit = new JButton("结算");
 		commit.setFont(fontc1);
-		commit.setBounds(430, 630, 80, 28);
-		bg.add(commit);				
+		commit.setBounds(360, 605, 80, 28);
 		
+		next = new JButton("下一位");
+		next.setFont(fontc1);
+		next.setBounds(460, 605, 80, 28);
 		
-		add(bg);		
+		bg.add(commit);	
+		bg.add(next);
+				
+		
+		//split line4
+		s5 = new JLabel(splitline);
+		s5.setBounds(0, 630, 600, 20);
+		bg.add(s5);
+		
+		//Timer: update time
+		timer = new Timer(1000, new TimerListener());
+		timer.start();
+		
+		add(bg);	
+		
 		this.setTitle("收银系统");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -288,8 +329,6 @@ public class SimpleUI extends JFrame{
 							double shouldmoney = currentmoney*discount;
 							String curshouldmoney = String.format("%.2f", shouldmoney);
 							shouldMoneyText.setText(curshouldmoney);
-							
-
 						}
 						goodIdInfo.setText("");
 						goodNumInfo.setText("");
@@ -310,12 +349,47 @@ public class SimpleUI extends JFrame{
 		commit.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//Send message to server, and check
-						// new Check UI
+						// Send message to server, and check
+						String shouldm = shouldMoneyText.getText();
+						double shouldmd = Double.parseDouble(shouldm);
+						String realm = inputMoneyText.getText();
+						double realmd = Double.parseDouble(realm);
+						double changed = realmd-shouldmd;
+						String changes = String.format("%.2f", changed);
+						changeText.setText(changes);
 					}
 				}
 			); 
 		
+		next.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// reset
+						customerInfo.setText("");
+						goodIdInfo.setText("");
+						goodNumInfo.setText("");
+						tarea.setText(" 编号\t名称\t\t数量\t单价\t小计\n"+splitline2+"\n");
+						/*
+						JLabel sumAmountLabel;
+						JLabel sumMoneyLabel;
+						JLabel sumAmountText;
+						JLabel sumMoneyText;
+						JLabel shouldMoneyLabel;
+						JLabel shouldMoneyText;
+						JLabel inputMoneyLabel;
+						JTextField inputMoneyText;
+						JLabel changeLabel;
+						JLabel changeText;
+						*/
+						sumAmountText.setText("0");
+						sumMoneyText.setText("0000.00");
+						shouldMoneyText.setText("0000.00");
+						inputMoneyText.setText("");
+						changeText.setText("0.00");
+						
+					}
+				}
+			); 
 	}
 
 	
@@ -343,5 +417,47 @@ public class SimpleUI extends JFrame{
 			temp = temp+"Saturday";
 		}
 		return temp;
+	}
+	
+	//Inner class
+	@SuppressWarnings("deprecation")
+	class TimerListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Date dtemp = new Date();
+			int year = dtemp.getYear()+1900;
+			int month = dtemp.getMonth();
+			int day = dtemp.getDay();
+			int daynum = dtemp.getDate();
+			int hour = dtemp.getHours();
+			int minute = dtemp.getMinutes();
+			int second = dtemp.getSeconds();
+			String ds = String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(daynum);
+			String hh = "";
+			String mm = "";
+			String ss = "";
+			if(hour<10) {
+				hh = "0"+ String.valueOf(hour);
+			}
+			else {
+				hh = String.valueOf(hour);
+			}
+			if(minute<10) {
+				mm = "0"+ String.valueOf(minute);
+			}
+			else {
+				mm = String.valueOf(minute);
+			}
+			if(second<10) {
+				ss = "0"+String.valueOf(second);
+			}
+			else {
+				ss = String.valueOf(second);
+			}
+			String ds2 = hh+" : "+mm + " : "+ss;
+			String ds3 = getDayString(day);
+			String ddd = ds+"    "+ds2+"    "+ds3;		
+			dataLabel.setText(ddd);
+			
+		}
 	}
 }

@@ -88,6 +88,11 @@ public class LoginUI extends JFrame {
 					id = idTextField.getText();
 					pwd = pwdField.getText();
 					System.out.println(id+"\t"+pwd);
+					// ”Îserver Ωªª•
+					//If correct, accoding to ID, here manager as an example!
+					@SuppressWarnings("unused")
+					AdministratorUI mui = new AdministratorUI(id);
+					setInvisible();
 				}
 			}
 		); 
@@ -98,13 +103,15 @@ public class LoginUI extends JFrame {
 					setInvisible();
 				}
 			}
-    	); 
-        
-        
+    	);
 	}
 	
 	public void setInvisible() {
 		this.setVisible(false);
+	}
+	
+	public String getID() {
+		return id;
 	}
 
 }
