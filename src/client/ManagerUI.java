@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
@@ -642,16 +643,19 @@ public class ManagerUI extends JFrame{
 							}
 							String returnFlag = recvd.getFlags();
 							if(returnFlag.equals(DEFINE.SYS_RETURN_GOOD_SUCCESS)) {
-								 JOptionPane.showMessageDialog(, “这是一个Java程序”, “我是输出信息对话框”，JOptionPane.PLAIN_MESSAGE);
+								 JOptionPane.showMessageDialog(null, "退货提示", "退货成功", JOptionPane.PLAIN_MESSAGE);
 							}
 							else {
-								
+								JOptionPane.showMessageDialog(null, "退货提示", "退货失败", JOptionPane.ERROR_MESSAGE);
 							}
-							
-							
 							idText.setText("");
 							numText.setText("");
 							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "退货提示", "退货失败 - 请输入内容", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
 						}
 					}
 				}
@@ -758,12 +762,52 @@ public class ManagerUI extends JFrame{
 						addnum = numText.getText();
 						addprice = priceText.getText();
 						addname = nameText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
-						priceText.setText("");
-						nameText.setText("");
+						if(!(addid.equals("")||addnum.equals("") || addprice.equals("") || addname.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(addid);;
+							goods.setCount(Integer.parseInt(addnum));
+							goods.setName(addname);
+							goods.setPrice(Double.parseDouble(addprice));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_ADD_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_ADD_GOOD_SUCCESS)) {
+								JOptionPane.showMessageDialog(null, "添加提示", "添加成功", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "添加提示", "添加失败", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "添加提示", "添加失败 - 请输入内容！", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+						}						
 					}
 				}
 			); 
@@ -871,12 +915,52 @@ public class ManagerUI extends JFrame{
 						editnum = numText.getText();
 						editprice = priceText.getText();
 						editname = nameText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
-						priceText.setText("");
-						nameText.setText("");
+						if(!(editid.equals("")||editnum.equals("")||editprice.equals("")||editname.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(editid);;
+							goods.setCount(Integer.parseInt(editnum));
+							goods.setName(editname);
+							goods.setPrice(Double.parseDouble(editprice));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_EDIT_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_EDIT_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "编辑提示", "编辑成功", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "编辑提示", "编辑失败", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "编辑提示", "编辑失败 - 请输入内容！", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+						}
 					}
 				}
 			); 
@@ -942,9 +1026,43 @@ public class ManagerUI extends JFrame{
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						deleteid = idText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
+						if(deleteid.equals("")) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(deleteid);;
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_DELETE_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_DELETE_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "删除提示", "删除成功", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "删除提示", "删除失败", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "删除提示", "删除失败 - 请输入编号！", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+						}
 					}
 				}
 			); 

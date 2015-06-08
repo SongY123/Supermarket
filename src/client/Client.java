@@ -1,8 +1,5 @@
 package client;
 
-import entity.UserExt;
-import util.InputTools;
-import util.Message;
 public class Client{ 
 
 	public static void main(String[] args) {
