@@ -21,7 +21,7 @@ public class DEFINE {
 	public static final String SYS_LOGOUTSUCCESS="LOGOUTSUCCESS";//登出成功
 	public static final String SYS_LOGOUTFAIL="LOGOUTFAIL";//登出失败
 	
-	public static final String SYS_GOODS_PRICE="GOODSPRICE";//查询单价和数量
+	public static final String SYS_GOODS_INFO="GOODINFO";//查询单价和数量
 	public static final String SYS_GOODS_OUT="GOODSOUT";//商品出库，商品数量减少
 	public static final String SYS_GOODS_LACK="GOODSLACK";//库存不够
 	public static final String SYS_MEMBER_QUERY="MEMBERQUERY";//查询会员

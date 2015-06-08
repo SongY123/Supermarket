@@ -39,15 +39,19 @@ public class ServerThread extends Thread{
 					if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
 						
 					}
-					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+					else if(DEFINE.SYS_LOGOUT.equals(datas.getFlags())){//登出
 						
 					}
-					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+					else if(DEFINE.SYS_GOODS_INFO.equals(datas.getFlags())){//查询商品信息
 						
 					}
-					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+					else if(DEFINE.SYS_GOODS_OUT.equals(datas.getFlags())){//商品出库
 						
 					}
+					else if(DEFINE.SYS_BALANCE.equals(datas.getFlags())){//账单
+						
+					}
+					
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
