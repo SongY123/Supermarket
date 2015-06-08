@@ -5,15 +5,15 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class User implements Serializable{
-	private int userid;//用户编号
+	private String userid;//用户编号
 	//private String name;//用户名
 	private String password;//密码
 	private int authority;//权限
 	
-	public int getUserid() {
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public int getAuthority() {

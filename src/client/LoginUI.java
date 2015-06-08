@@ -5,6 +5,11 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import java.io.*;
+import java.net.*;
+
+import entity.User;
+
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame {
 	//Components
@@ -22,7 +27,20 @@ public class LoginUI extends JFrame {
 	String id;
 	String pwd;
 	
+	// Sockets
+	private ObjectOutputStream outputToServer;
+	private ObjectInputStream inputFromServer;
+	private Socket socket;
+
 	public LoginUI() {
+		try {
+	        socket = new Socket("localhost", 8000);//服务器固定ip
+	        inputFromServer = new ObjectInputStream(socket.getInputStream());
+	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
+	    }
+	    catch (IOException ex) {
+	        System.out.println(ex.toString());
+	    }
 		setSize(380, 290);
 		//background
 		head = new JLabel();
@@ -88,8 +106,10 @@ public class LoginUI extends JFrame {
 					id = idTextField.getText();
 					pwd = pwdField.getText();
 					System.out.println(id+"\t"+pwd);
+					User sendu = new User();
+					sendu.setUserid(Integer.parseInt(arg0));
 					// 与server 交互
-					//If correct, accoding to ID, here manager as an example!
+					// If correct, accoding to ID, here manager as an example!
 					@SuppressWarnings("unused")
 					AdministratorUI mui = new AdministratorUI(id);
 					setInvisible();
