@@ -26,7 +26,7 @@ public class EmployeeDB {
 			e.printStackTrace();
 		}
 	}
-	void insertEmployee(String Username,String Password,int level){
+	public void insertEmployee(String Username,String Password,int level){
 		try {
 			InsertEmployee.setString(1, Username);
 			InsertEmployee.setString(2, Password);
@@ -38,12 +38,12 @@ public class EmployeeDB {
 		}
 	}
 	
-	int verifyEmployee(String Username,String Password){
+	public int verifyEmployee(String Username,String Password){
 		try {
 			VerifyEmployee.setString(1, Username);
 			VerifyEmployee.setString(2, Password);
 			ResultSet resultSet = VerifyEmployee.executeQuery();
-			if(resultSet.next())return resultSet.getInt(4);
+			if(resultSet.next())return 1;
 			else return -1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -52,7 +52,7 @@ public class EmployeeDB {
 		return 0;
 	}
 	
-	int findEmployeelevel(String Username){
+	public int findEmployeelevel(String Username){
 		try {
 			FindEmployee.setString(1, Username);
 			ResultSet resultSet = FindEmployee.executeQuery();
@@ -63,7 +63,7 @@ public class EmployeeDB {
 		}
 		return 0;
 	}
-	int findEmployeeonline(String Username){
+	public int findEmployeeonline(String Username){
 		try {
 			FindEmployee.setString(1, Username);
 			ResultSet resultSet = FindEmployee.executeQuery();
@@ -74,7 +74,7 @@ public class EmployeeDB {
 		}
 		return -1;
 	}
-	int loginEmployee(String Username,String Password){
+	public int loginEmployee(String Username,String Password){
 		int tag = verifyEmployee(Username,Password);
 		if(tag==-1)return 0;//ÃÜÂë´íÎó
 		else if(tag==1)return -1;//ÖØ¸´µÇÂ¼
@@ -90,7 +90,7 @@ public class EmployeeDB {
 		}
 	}
 	
-	int loginoutEmployee(String Username){
+	public int loginoutEmployee(String Username){
 		int tag = findEmployeeonline(Username);
 		if(tag==-1||tag==0)return -1;//ÒÑ¾­µÇ³ö
 		else {

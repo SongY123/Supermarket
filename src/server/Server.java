@@ -44,8 +44,9 @@ public class Server {
 		        serverSocket = new ServerSocket(serverPort);
 		        while(true){
 		        	Socket socket =  serverSocket.accept();//接收连接请求
+		        	ClientCount+=1;
 		        	System.out.println("A new Client connected...");
-		        	new ServerThread(socket).start();
+		        	new ServerThread(socket,users,employees,trades,goods).start();
 		        }
 		  }
 		  catch(IOException ex) {
