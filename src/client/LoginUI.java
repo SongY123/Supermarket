@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.io.*;
 import java.net.*;
 
+import entity.Datas;
 import entity.User;
+import util.DEFINE;
 
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame {
@@ -106,12 +108,46 @@ public class LoginUI extends JFrame {
 					id = idTextField.getText();
 					pwd = pwdField.getText();
 					System.out.println(id+"\t"+pwd);
+					Datas sendd = new Datas();
+					Datas recvd = new Datas();
+					sendd.setFlags("LOGIN");					
 					User sendu = new User();
-					sendu.setUserid(Integer.parseInt(arg0));
-					// Óëserver ½»»¥
-					// If correct, accoding to ID, here manager as an example!
-					@SuppressWarnings("unused")
-					AdministratorUI mui = new AdministratorUI(id);
+					sendu.setUserid(id);
+					sendu.setPassword(pwd);
+					sendd.setUser(sendu);
+					int auth = 0;
+					try {
+						outputToServer.writeObject(sendd);
+						try {
+							recvd = (Datas) inputFromServer.readObject();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						String recvf = recvd.getFlags();
+						if(recvf.equals(DEFINE.SYS_LOGINSUCCESS)) {
+							User recvu = recvd.getUser();
+							auth = recvu.getAuthority();
+						}
+						else {
+							JOptionPane.showMessageDialog(null,"µÇÂ½Ê§°Ü£¡");
+							System.exit(-1);
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					if(auth == 0) {
+						@SuppressWarnings("unused")
+						SimpleUI sui = new SimpleUI(id);
+					}
+					else if(auth == 1) {
+						ManagerUI mui = new ManagerUI(id);
+					}
+					else if(auth == 2) {
+						AdministratorUI aui = new AdministratorUI(id);
+					}
 					setInvisible();
 				}
 			}
