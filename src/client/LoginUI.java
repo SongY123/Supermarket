@@ -143,9 +143,11 @@ public class LoginUI extends JFrame {
 						SimpleUI sui = new SimpleUI(id);
 					}
 					else if(auth == 1) {
+						@SuppressWarnings("unused")
 						ManagerUI mui = new ManagerUI(id);
 					}
 					else if(auth == 2) {
+						@SuppressWarnings("unused")
 						AdministratorUI aui = new AdministratorUI(id);
 					}
 					setInvisible();
