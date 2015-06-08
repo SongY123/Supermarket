@@ -17,6 +17,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+import entity.Datas;
+import entity.Goods;
+import util.DEFINE;
+
+
 @SuppressWarnings("serial")
 public class ManagerUI extends JFrame{
 	// socket?	
@@ -611,10 +616,43 @@ public class ManagerUI extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						returnid = idText.getText();
 						returnnum = numText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
+						if(!(returnid.equals("") || returnnum.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(returnid);;
+							goods.setCount(Integer.parseInt(returnnum));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_RETURN_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_RETURN_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(, “这是一个Java程序”, “我是输出信息对话框”，JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								
+							}
+							
+							
+							idText.setText("");
+							numText.setText("");
+							setVisible(false);
+						}
 					}
 				}
 			); 

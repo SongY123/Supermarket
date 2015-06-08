@@ -28,6 +28,9 @@ public class DEFINE {
 	
 	public static final String SYS_BALANCE="BALANCE";//结算
 	
+	public static final String SYS_RETURN_GOOD="RETURNGOOD"; //退货
+	public static final String SYS_RETURN_GOOD_SUCCESS="RETURNGOODSUCCESS"; //退货成功
+	public static final String SYS_RETURN_GOOD_FAIL="RETURNGOODFAIL"; //退货失败
 	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限
