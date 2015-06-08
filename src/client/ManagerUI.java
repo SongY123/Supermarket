@@ -4,6 +4,10 @@ import java.awt.Font;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -84,8 +88,22 @@ public class ManagerUI extends JFrame{
 			+ "------------------------------------------------------";
 	
 	
+	// Sockets
+	private ObjectOutputStream outputToServer;
+	private ObjectInputStream inputFromServer;
+	private Socket socket;
+	
+	
 	@SuppressWarnings("deprecation")
-	public ManagerUI(String id) {		
+	public ManagerUI(String id) {
+		try {
+	        socket = new Socket("localhost", 8000);//·þÎñÆ÷¹Ì¶¨ip
+	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
+	        inputFromServer = new ObjectInputStream(socket.getInputStream());
+	    }
+	    catch (IOException ex) {
+	        System.out.println(ex.toString());
+	    }
 		setSize(600, 730);
 		bg = new JLabel();
 		//ImageIcon icon = new ImageIcon("images/bg1.jpg");

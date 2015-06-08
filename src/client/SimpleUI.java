@@ -74,8 +74,8 @@ public class SimpleUI extends JFrame {
 	public SimpleUI(String id) {
 		try {
 	        socket = new Socket("localhost", 8000);//·þÎñÆ÷¹Ì¶¨ip
-	        inputFromServer = new ObjectInputStream(socket.getInputStream());
 	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
+	        inputFromServer = new ObjectInputStream(socket.getInputStream());
 	    }
 	    catch (IOException ex) {
 	        System.out.println(ex.toString());
