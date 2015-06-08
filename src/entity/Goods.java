@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Goods implements Serializable{
-	private int goodid;//商品编号
+	private String goodid;//商品编号
 	private String name;//商品名称
 	private double price;//单价
 	private int count;//数量
 	//private int stock;//库存数量
 
-	public int getGoodid() {
+	public String getGoodid() {
 		return goodid;
 	}
-	public void setGoodid(int goodid) {
+	public void setGoodid(String goodid) {
 		this.goodid = goodid;
 	}
 	public String getName() {

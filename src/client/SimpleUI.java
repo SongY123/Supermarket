@@ -2,12 +2,13 @@ package client;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 import java.util.Date;
+import java.io.*;
+import java.net.*;
 
-
+import entity.User;
 
 @SuppressWarnings("serial")
 public class SimpleUI extends JFrame {
@@ -59,16 +60,29 @@ public class SimpleUI extends JFrame {
 	private static final String splitline2 = "--------------------------------------------"
 			+ "------------------------------------------------------";
 	
+	// Sockets
+	private ObjectOutputStream outputToServer;
+	private ObjectInputStream inputFromServer;
+	private Socket socket;
+	
 	
 	@SuppressWarnings("deprecation")
-	public SimpleUI(String id) {	
+	public SimpleUI(String id) {
+		try {
+	        socket = new Socket("localhost", 8000);//服务器固定ip
+	        inputFromServer = new ObjectInputStream(socket.getInputStream());
+	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
+	    }
+	    catch (IOException ex) {
+	        System.out.println(ex.toString());
+	    }
 		setSize(600, 730);
 		bg = new JLabel();
-		//ImageIcon icon = new ImageIcon("images/bg1.jpg");
-		//icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT));
+		// ImageIcon icon = new ImageIcon("images/bg1.jpg");
+		// icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT));
 		bg.setBounds(0, 0, 600, 730);  
         bg.setHorizontalAlignment(0);  
-       // bg.setIcon(icon); 
+        // bg.setIcon(icon); 
         
         //head title
 		headTitle = new JLabel("NJUSE 超市收银系统");
