@@ -307,9 +307,12 @@ public class SimpleUI extends JFrame {
 						String id = goodIdInfo.getText();
 						String num = goodNumInfo.getText();	
 						if(!(id.equals("")||num.equals(""))) {
-							//先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
+							// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
 							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");						
-							//更新数量与总计
+							// 更新数量与总计
+							// outputToServer。writeUTF(id);
+							// String name = inputFromServer.readUTF();
+							// double price = inputFromServer.readDouble();
 							int numincrement = Integer.parseInt(num);
 							String oldnum = sumAmountText.getText();
 							int currentnum = numincrement+Integer.parseInt(oldnum);
@@ -350,13 +353,15 @@ public class SimpleUI extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// Send message to server, and check
-						String shouldm = shouldMoneyText.getText();
-						double shouldmd = Double.parseDouble(shouldm);
-						String realm = inputMoneyText.getText();
-						double realmd = Double.parseDouble(realm);
-						double changed = realmd-shouldmd;
-						String changes = String.format("%.2f", changed);
-						changeText.setText(changes);
+						if(!inputMoneyText.getText().equals("")) {
+							String shouldm = shouldMoneyText.getText();
+							double shouldmd = Double.parseDouble(shouldm);
+							String realm = inputMoneyText.getText();
+							double realmd = Double.parseDouble(realm);
+							double changed = realmd-shouldmd;
+							String changes = String.format("%.2f", changed);
+							changeText.setText(changes);
+						}
 					}
 				}
 			); 
@@ -369,18 +374,6 @@ public class SimpleUI extends JFrame {
 						goodIdInfo.setText("");
 						goodNumInfo.setText("");
 						tarea.setText(" 编号\t名称\t\t数量\t单价\t小计\n"+splitline2+"\n");
-						/*
-						JLabel sumAmountLabel;
-						JLabel sumMoneyLabel;
-						JLabel sumAmountText;
-						JLabel sumMoneyText;
-						JLabel shouldMoneyLabel;
-						JLabel shouldMoneyText;
-						JLabel inputMoneyLabel;
-						JTextField inputMoneyText;
-						JLabel changeLabel;
-						JLabel changeText;
-						*/
 						sumAmountText.setText("0");
 						sumMoneyText.setText("0000.00");
 						shouldMoneyText.setText("0000.00");

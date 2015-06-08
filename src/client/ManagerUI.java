@@ -396,14 +396,16 @@ public class ManagerUI extends JFrame{
 		commit.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Send message to server, and check
-						String shouldm = shouldMoneyText.getText();
-						double shouldmd = Double.parseDouble(shouldm);
-						String realm = inputMoneyText.getText();
-						double realmd = Double.parseDouble(realm);
-						double changed = realmd-shouldmd;
-						String changes = String.format("%.2f", changed);
-						changeText.setText(changes);
+						if(!inputMoneyText.getText().equals("")) {
+							// Send message to server, and check
+							String shouldm = shouldMoneyText.getText();
+							double shouldmd = Double.parseDouble(shouldm);
+							String realm = inputMoneyText.getText();
+							double realmd = Double.parseDouble(realm);
+							double changed = realmd-shouldmd;
+							String changes = String.format("%.2f", changed);
+							changeText.setText(changes);
+						}
 					}
 				}
 			); 
