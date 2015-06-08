@@ -6,9 +6,9 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class User implements Serializable{
 	private int userid;//用户编号
-	private String name;//用户名
+	//private String name;//用户名
 	private String password;//密码
-	private String authority;//权限
+	private int authority;//权限
 	
 	public int getUserid() {
 		return userid;
@@ -16,18 +16,20 @@ public class User implements Serializable{
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public String getAuthority() {
+	public int getAuthority() {
 		return authority;
 	}
-	public void setAuthority(String authority) {
+	public void setAuthority(int authority) {
 		this.authority = authority;
 	}
+	/*
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	*/
 	public String getPassword() {
 		return password;
 	}

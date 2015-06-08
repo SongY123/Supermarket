@@ -10,11 +10,9 @@ import entity.MemberExt;
 import entity.User;
 import entity.UserExt;
 
-/*
- * 写入测试数据用
- */
+
 public class DemoData {
-	
+	/*
 	//显示会员数据 
 	public static void showMember(){
 		HashMap<Integer,Member> map_member=MemberExt.getMemberList();
@@ -146,4 +144,5 @@ public class DemoData {
 			System.out.println("初始化商品信息失败...");
 		}
 	}
+	*/
 }

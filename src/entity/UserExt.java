@@ -9,17 +9,15 @@ import util.Message;
 import util.SocketTools;
 import util.Tools;
 
-/*
- * 用户信息操作类
- */
 public class UserExt {
+	/*
 	//用户数据文件
 	private static String path_user=Tools.getValue(DEFINE.SYS_PATH)+Tools.getValue(DEFINE.SYS_DATA_USER);
 	
 	/*
 	 * 读取用户列表
 	 * 返回值:HashMap数组类型的User
-	 */
+	  
 	@SuppressWarnings("unchecked")
 	public static HashMap<Integer,User> getUserList(){
 		return (HashMap<Integer,User>) FileTools.readData(path_user);
@@ -29,14 +27,14 @@ public class UserExt {
 	 * 写入用户列表
 	 * 参数:map_user是HashMap类型的User数组
 	 * 返回值:写入成功返回true，写入失败返回false
-	 */
+	  
 	public static boolean setUserList(HashMap<Integer,User> map_user){
 		return FileTools.writeData(map_user, path_user);
 	}
 	
 	/*
 	 * 客户端登录请求
-	 */
+	  
 	public static void login(){
 		Datas datas=new Datas();
 		User user=new User();
@@ -75,7 +73,7 @@ public class UserExt {
 	/*
 	 * 服务器登录检测
 	 * 参数：datas数据包,服务器socket
-	 */
+	  
 	public static void loginCheck(Datas datas,Socket socket){
 		datas.setFlags(DEFINE.SYS_LOGINFAIL);
 		HashMap<Integer,User> map_user=UserExt.getUserList();
@@ -101,5 +99,5 @@ public class UserExt {
 		}
 		SocketTools.sendData(datas,socket);
 	}
-
+*/
 }

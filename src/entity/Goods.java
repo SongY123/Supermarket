@@ -7,8 +7,8 @@ public class Goods implements Serializable{
 	private int goodid;//商品编号
 	private String name;//商品名称
 	private double price;//单价
-	private String unit;//计量单位
-	private int stock;//库存数量
+	private int count;//数量
+	//private int stock;//库存数量
 
 	public int getGoodid() {
 		return goodid;
@@ -28,18 +28,29 @@ public class Goods implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getUnit() {
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	/*
+	 * public String getUnit() {
 		return unit;
 	}
+	*/
+	/*
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+	*/
+	/*
 	public int getStock() {
 		return stock;
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	
+	*/
 	
 }

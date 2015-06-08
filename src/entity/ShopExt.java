@@ -14,7 +14,7 @@ public class ShopExt {
 	private static Member member=null;//会员信息
 	private static int uid=0;//收银员编号
 	private static String code="";//小票编号
-	
+	/*
 	public static int getUid() {
 		return uid;
 	}
@@ -30,7 +30,7 @@ public class ShopExt {
 	/*
 	 * 初始化单号
 	 * 清空购物列表
-	 */
+	  
 	private static void cleanShopList(){
 		code=getCode();
 		totalprice=0;
@@ -137,7 +137,7 @@ public class ShopExt {
 		 * 如果老数量比新数量大，则向服务器添加库存
 		 * 否则要先要检测库存是否足够，
 		 * 库存足够情况下再向服务器消减库存
-		 */
+		  
 		Datas datas2=new Datas();
 		Goods goods2=new Goods();
 		goods2.setGoodid(goodsid);
@@ -300,4 +300,5 @@ public class ShopExt {
 		member=datas2.getMember();
 		normal_accounts();
 	}
+	*/
 }

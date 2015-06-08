@@ -12,12 +12,13 @@ import util.Tools;
 
 public class GoodsExt {
 	//goods文件路径
+	/*
 	private static String path_goods=Tools.getValue(DEFINE.SYS_PATH)+Tools.getValue(DEFINE.SYS_DATA_GOODS);
 	
 	/*
 	 * 读取商品列表
 	 * 返回值:HashMap类型的Goods列表
-	 */
+	  
 	@SuppressWarnings("unchecked")
 	public static HashMap<Integer,Goods> getGoodsList(){
 		return (HashMap<Integer,Goods>) FileTools.readData(path_goods);
@@ -27,7 +28,7 @@ public class GoodsExt {
 	 * 写入商品列表
 	 * 参数:map_goods是HashMap数组类型的Goods列表
 	 * 返回值:写入成功返回true，写入失败返回false
-	 */
+	  
 	public static boolean setGoodsList(HashMap<Integer,Goods> map_goods){
 		return FileTools.writeData(map_goods, path_goods);
 	}
@@ -85,7 +86,7 @@ public class GoodsExt {
 	/*
 	 * 服务器商品入库检测
 	 * 参数：datas数据包，服务器socket
-	 */
+	  
 	public static void stockInOutCheck(Datas datas,Socket socket){
 		//如果数据包异常则退出
 		if(!checkDatas(datas,socket)){
@@ -152,7 +153,7 @@ public class GoodsExt {
 	/*
 	 * 发送商品数据到服务器 
 	 * 参数：datas数据包，goods商品
-	 */
+	  
 	public static Datas sendGoods(Datas datas,Goods goods){
 		datas.setGoods(goods);
 		Datas datas2=(Datas) SocketTools.sendData(datas);
@@ -178,7 +179,7 @@ public class GoodsExt {
 	 * 检测数据包异常
 	 * 参数：datas数据包，服务器socket
 	 * 返回值：数据包正常返回true，异常返回false
-	 */
+	  
 	private static boolean checkDatas(Datas datas,Socket socket){
 		if(datas==null){
 			datas=new Datas();
@@ -202,7 +203,7 @@ public class GoodsExt {
 	 * 检测商品是否存在
 	 * 参数：datas数据包
 	 * 返回值：HashMap数组类型的goods列表
-	 */
+	
 	private static HashMap<Integer,Goods> checkContainsGoods(Datas datas){
 		int goodsid=datas.getGoods().getGoodid();
 		HashMap<Integer,Goods> map_goods=getGoodsList();
@@ -223,10 +224,10 @@ public class GoodsExt {
 		return false;
 	}
 	
-	/*
+
 	 * 服务器添加商品检测
 	 * 参数：datas数据包,服务器socket
-	 */
+	
 	public static void stockAddCheck(Datas datas,Socket socket){
 		if(!checkDatas(datas,socket)){
 			return;
@@ -315,11 +316,11 @@ public class GoodsExt {
 		}
 	}
 	
-	/*
+
 	 * 服务器返回全部商品
 	 * 参数：datas数据包，服务器socket
 	 * 返回值：查询成功返回datas，失败返回null
-	 */
+	
 	public static void replyGoodsQueryAll(Datas datas,Socket socket){
 		if(datas==null){
 			datas=new Datas();
@@ -349,11 +350,11 @@ public class GoodsExt {
 		}
 	}
 	
-	/*
+
 	 * 服务器返回商品查询
 	 * 参数：datas数据包，服务器socket
 	 * 返回值：查询成功返回datas，否则返回null
-	 */
+
 	public static void replyGoodsQueryByid(Datas datas,Socket socket){
 		if(datas==null){
 			datas=new Datas();
@@ -383,5 +384,6 @@ public class GoodsExt {
 		
 		SocketTools.sendData(datas, socket);
 	}
+	*/
 }
 	
