@@ -10,16 +10,17 @@ import java.util.HashMap;
 public class Datas implements Serializable{
 	private String flags=null;//传递标志
 	private Goods goods=null;//商品信息
-	private HashMap<Integer,Goods> map_goods=null;//商品列表
+	//private HashMap<Integer,Goods> map_goods=null;//商品列表
 	private User user=null;//用户信息
 	private Member member=null;//会员信息
-	
+	double cost;//消费金额
+	/*
 	public HashMap<Integer, Goods> getMap_goods() {
 		return map_goods;
 	}
 	public void setMap_goods(HashMap<Integer, Goods> map_goods) {
 		this.map_goods = map_goods;
-	}
+	}*/
 	public String getFlags() {
 		return flags;
 	}

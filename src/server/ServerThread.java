@@ -32,16 +32,18 @@ public class ServerThread extends Thread{
 					ois=new ObjectInputStream(is);
 					os = socket.getOutputStream();
 					oos = new ObjectOutputStream(os);
-					
+			
 					Datas datas = (Datas) ois.readObject();
 					
 					//登录请求
 					if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
-						UserExt.loginCheck(datas, socket);	
+						
 					}
-					
+					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+						
+					}
 					//入库、出库请求
-					if(datas.getFlags().equals(DEFINE.SYS_GOODS_IN) || datas.getFlags().equals(DEFINE.SYS_GOODS_OUT)){
+					else if(datas.getFlags().equals(DEFINE.SYS_GOODS_IN) || datas.getFlags().equals(DEFINE.SYS_GOODS_OUT)){
 						GoodsExt.stockInOutCheck(datas, socket);
 					}
 					
