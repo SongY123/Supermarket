@@ -40,12 +40,19 @@ public class ServerThread extends Thread{
 	}
 	
 	public void run(){
+		System.out.print(1);
 			try {
+				System.out.print(2);
+				is=socket.getInputStream();
+				System.out.print(3);
+				ois=new ObjectInputStream(is);
+				System.out.print(4);
+				os = socket.getOutputStream();
+				System.out.print(5);
+				oos = new ObjectOutputStream(os);
+				System.out.print(6);
 				while(true){
-					is=socket.getInputStream();
-					ois=new ObjectInputStream(is);
-					os = socket.getOutputStream();
-					oos = new ObjectOutputStream(os);
+					System.out.print(1);
 			
 					Datas datas = (Datas) ois.readObject();
 					

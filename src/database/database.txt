@@ -9,7 +9,8 @@ Employee
 CREATE TABLE employee(
 id VARCHAR(8) NOT NULL PRIMARY KEY,
 password VARCHAR(20) NOT NULL,
-level int(10) NOT NULL
+level int(10) NOT NULL,
+online int(1) NOT NULL
 );
 
 Trade

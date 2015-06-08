@@ -29,10 +29,9 @@ public class LoginUI extends JFrame {
 	String id;
 	String pwd;
 	
-	// Sockets
-	private ObjectOutputStream outputToServer;
-	private ObjectInputStream inputFromServer;
-	private Socket socket;
+	public Socket socket ;//= new Socket("localhost", 8000);//·þÎñÆ÷¹Ì¶¨ip
+	public ObjectInputStream inputFromServer;// = new ObjectInputStream(socket.getInputStream());
+	public ObjectOutputStream outputToServer;// = new ObjectOutputStream(socket.getOutputStream());
 
 	public LoginUI() {
 		try {
