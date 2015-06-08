@@ -78,8 +78,7 @@ public class ServerThread extends Thread{
 							outdata.setFlags(DEFINE.SYS_LOGOUTFAIL);
 						}
 						else{
-							System.out.println("登录成功");
-							u.setAuthority(employees.findEmployeelevel(u.getUserid()));
+							System.out.println("登出成功");
 							outdata.setFlags(DEFINE.SYS_LOGOUTSUCCESS);
 							outdata.setUser(u);
 						}
