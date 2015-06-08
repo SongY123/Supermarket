@@ -9,8 +9,8 @@ public class Client{
 		//runClient();
 		// SimpleUI sui = new SimpleUI();
 		@SuppressWarnings("unused")
-		ManagerUI mui = new ManagerUI("dd");
-		//LoginUI lui = new LoginUI();
+		// ManagerUI mui = new ManagerUI("dd");
+		LoginUI lui = new LoginUI();
 	}
 	/*
 	public static void runClient(){
