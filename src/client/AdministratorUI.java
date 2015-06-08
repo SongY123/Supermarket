@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -116,7 +117,8 @@ public class AdministratorUI extends JFrame{
        // bg.setIcon(icon); 
         
         //head title
-		headTitle = new JLabel("NJUSE 超市收银系统");
+        ImageIcon headic = new ImageIcon("images/title.png");
+		headTitle = new JLabel(headic);
 		headTitle.setFont(fontc);
 		headTitle.setBounds(200,10,200,25);
 		bg.add(headTitle);
