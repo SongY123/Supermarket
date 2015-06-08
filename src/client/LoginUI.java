@@ -138,17 +138,20 @@ public class LoginUI extends JFrame {
 						e1.printStackTrace();
 					}
 					
-					if(auth == 0) {
+					if(auth == 1) {
 						@SuppressWarnings("unused")
 						SimpleUI sui = new SimpleUI(id);
 					}
-					else if(auth == 1) {
+					else if(auth == 2) {
 						@SuppressWarnings("unused")
 						ManagerUI mui = new ManagerUI(id);
 					}
-					else if(auth == 2) {
+					else if(auth == 3) {
 						@SuppressWarnings("unused")
 						AdministratorUI aui = new AdministratorUI(id);
+					}
+					else {
+						System.exit(-1);
 					}
 					setInvisible();
 				}
