@@ -1,4 +1,4 @@
-package server;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Goods {
+public class GoodsDB {
 	private PreparedStatement FindGood;//查找商品
 	private PreparedStatement InsertGood;//插入商品信息，商品编号id，商品名name，数量count，单价price
 	private PreparedStatement UpdateGood;//商品扣除count
 	private Connection connection;
-	public Goods(Connection connection){
+	public GoodsDB(Connection connection){
 		try {
 			this.connection = connection;
 			FindGood = connection.prepareStatement("select * from good where id = ?");

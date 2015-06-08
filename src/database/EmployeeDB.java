@@ -1,4 +1,4 @@
-package server;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Employee {
+public class EmployeeDB {
 	private PreparedStatement FindEmployee;//查找雇员
 	private PreparedStatement InsertEmployee;//插入用户,帐号，密码，等级
 	private PreparedStatement VerifyEmployee;//验证用户名和密码
 	private PreparedStatement LoginEmployee;//登录
 	private PreparedStatement LogoutEmployee;//登出
 	private Connection connection;
-	public Employee(Connection connection){
+	public EmployeeDB(Connection connection){
 		try {
 			this.connection = connection;
 			FindEmployee = connection.prepareStatement("select * from employee where id = ?");
