@@ -47,7 +47,20 @@ public class GoodsDB {
 		return 0;
 	}
 	
-	double findGoodPrice(String id){//查询商品单价
+	public String findGoodname(String id){
+		try {
+			FindGood.setString(1, id);
+			ResultSet resultSet = FindGood.executeQuery();
+System.out.println(resultSet);
+			return resultSet.getCursorName();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public double findGoodPrice(String id){//查询商品单价
 		try {
 			FindGood.setString(1, id);
 			ResultSet resultSet = FindGood.executeQuery();

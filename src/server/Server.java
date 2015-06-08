@@ -31,7 +31,7 @@ public class Server {
 	}
 	public void linkDatabase() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket","root","User");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket","root","");
 		System.out.println("Driver loaded!");
 		users = new UsersDB(connection);
 		employees = new EmployeeDB(connection);

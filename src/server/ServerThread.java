@@ -12,6 +12,7 @@ import database.GoodsDB;
 import database.TradeDB;
 import database.UsersDB;
 import entity.Datas;
+import entity.Goods;
 import entity.GoodsExt;
 import entity.MemberExt;
 import entity.User;
@@ -48,7 +49,8 @@ public class ServerThread extends Thread{
 				while(true){
 			
 					Datas datas = (Datas) ois.readObject();
-					
+System.out.println(datas);		
+System.out.println(datas.getFlags());
 					//登录请求
 					if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
 						System.out.println("登录");
@@ -85,6 +87,20 @@ public class ServerThread extends Thread{
 						oos.writeObject(outdata);
 					}
 					else if(DEFINE.SYS_GOODS_INFO.equals(datas.getFlags())){//查询商品信息
+						String getid=datas.getGoods().getGoodid();
+						int getcount =datas.getGoods().getCount();
+System.out.println(getid);
+System.out.println(getcount);
+						Datas outdata = new Datas();
+						Goods good = new Goods();
+						good.setCount(getcount);
+						good.setGoodid(getid);
+						good.setPrice(goods.findGoodPrice(getid));
+						good.setName(goods.findGoodname(getid));
+						
+						outdata.setGoods(good);
+						
+						oos.writeObject(outdata);
 						
 					}
 					else if(DEFINE.SYS_GOODS_OUT.equals(datas.getFlags())){//商品出库

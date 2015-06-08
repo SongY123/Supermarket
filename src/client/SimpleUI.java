@@ -2,12 +2,14 @@ package client;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import java.util.Date;
 import java.io.*;
 import java.net.*;
 
+import entity.Goods;
 import entity.User;
 import util.DEFINE;
 import entity.Datas;
@@ -73,7 +75,7 @@ public class SimpleUI extends JFrame {
 	@SuppressWarnings("deprecation")
 	public SimpleUI(String id) {
 		try {
-	        socket = new Socket("localhost", 8000);//服务器固定ip
+	        socket = new Socket("localhost", 8000);//服务器固定ip   
 	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
 	        inputFromServer = new ObjectInputStream(socket.getInputStream());
 	    }
@@ -324,13 +326,37 @@ public class SimpleUI extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						String id = goodIdInfo.getText();
 						String num = goodNumInfo.getText();	
+System.out.println("11"+id+num);
 						if(!(id.equals("")||num.equals(""))) {
 							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+System.out.println("12"+id+num);
+							goods.setGoodid(id);;
+							goods.setCount( Integer.parseInt(num));
+							sendd.setGoods(goods);
+							sendd.setFlags("GOODINFO");
 							
-							// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
-							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");						
+							try {
+								outputToServer.writeObject(sendd);
+								try {
+									recvd = (Datas) inputFromServer.readObject();
+								} catch (ClassNotFoundException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								String getid=recvd.getGoods().getGoodid();
+								String getname = recvd.getGoods().getName();
+								double getprice=recvd.getGoods().getPrice();
+								int getcount =recvd.getGoods().getCount();
+								// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
+							tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
 							// 更新数量与总计
-							
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}		
+														
 							int numincrement = Integer.parseInt(num);
 							String oldnum = sumAmountText.getText();
 							int currentnum = numincrement+Integer.parseInt(oldnum);
