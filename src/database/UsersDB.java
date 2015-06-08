@@ -20,7 +20,7 @@ public class UsersDB {
 			e.printStackTrace();
 		}
 	}
-	void insertUser(String Username,int level){
+	public void insertUser(String Username,int level){
 		try {
 			InsertUser.setString(1, Username);
 			InsertUser.setInt(2, level);
@@ -30,7 +30,7 @@ public class UsersDB {
 			e.printStackTrace();
 		}
 	}
-	int findUser(String Username){
+	public int findUser(String Username){
 		try {
 			FindUser.setString(1, Username);
 			ResultSet resultSet = FindUser.executeQuery();
