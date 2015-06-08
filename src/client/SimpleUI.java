@@ -326,12 +326,11 @@ public class SimpleUI extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						String id = goodIdInfo.getText();
 						String num = goodNumInfo.getText();	
-System.out.println("11"+id+num);
 						if(!(id.equals("")||num.equals(""))) {
 							Datas sendd = new Datas();
 							Datas recvd = new Datas();
 							Goods goods = new Goods();
-System.out.println("12"+id+num);
+
 							goods.setGoodid(id);;
 							goods.setCount( Integer.parseInt(num));
 							sendd.setGoods(goods);
