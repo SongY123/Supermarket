@@ -1,4 +1,4 @@
-package server;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Users {
+public class UsersDB {
 	private PreparedStatement FindUser;//查找用户
 	private PreparedStatement InsertUser;//插入用户,帐号，会员等级
 	private Connection connection;
-	public Users(Connection connection){
+	public UsersDB(Connection connection){
 		try {
 			this.connection = connection;
 			FindUser = connection.prepareStatement("select * from user where id = ?");

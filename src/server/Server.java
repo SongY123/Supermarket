@@ -6,21 +6,21 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import database.EmployeeDB;
+import database.GoodsDB;
+import database.TradeDB;
+import database.UsersDB;
 import server.ServerThread;
-import server.Users;
-import server.Employee;
-import server.Goods;
-import server.Trade;
 
 public class Server {
 	private ServerSocket serverSocket;
 	private int ClientCount = 0;
 	private int serverPort = 8000;//服务器端口
 	private Connection connection;
-	private Users users;//会员数据库
-	private Employee employees;//用户数据库
-	private Trade trades;//交易记录数据库
-	private Goods goods;//商品信息数据库
+	private UsersDB users;//会员数据库
+	private EmployeeDB employees;//用户数据库
+	private TradeDB trades;//交易记录数据库
+	private GoodsDB goods;//商品信息数据库
 	public Server(){
 		try {
 				linkDatabase();
@@ -33,10 +33,10 @@ public class Server {
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dict","root","User");
 		System.out.println("Driver loaded!");
-		users = new Users(connection);
-		employees = new Employee(connection);
-		trades = new Trade(connection);
-		goods = new Goods(connection);
+		users = new UsersDB(connection);
+		employees = new EmployeeDB(connection);
+		trades = new TradeDB(connection);
+		goods = new GoodsDB(connection);
 		System.out.println("Database connected!");
 	  }
 	public void listen(){
