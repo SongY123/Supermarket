@@ -34,7 +34,9 @@ public class UsersDB {
 		try {
 			FindUser.setString(1, Username);
 			ResultSet resultSet = FindUser.executeQuery();
-			return resultSet.getInt(2);
+			if(resultSet.next()){
+				return resultSet.getInt(2);
+			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -89,8 +89,6 @@ System.out.println(datas.getFlags());
 					else if(DEFINE.SYS_GOODS_INFO.equals(datas.getFlags())){//查询商品信息
 						String getid=datas.getGoods().getGoodid();
 						int getcount =datas.getGoods().getCount();
-System.out.println(getid);
-System.out.println(getcount);
 						Datas outdata = new Datas();
 						Goods good = new Goods();
 						good.setCount(getcount);
@@ -99,6 +97,18 @@ System.out.println(getcount);
 						good.setName(goods.findGoodname(getid));
 						
 						outdata.setGoods(good);
+						
+						oos.writeObject(outdata);
+						
+					}
+					else if(DEFINE.SYS_MEMBER_QUERY.equals(datas.getFlags())){
+						String getid=datas.getUser().getUserid();
+						Datas outdata = new Datas();
+						User user = new User();
+						user.setUserid(getid);
+						user.setAuthority(users.findUser(getid));
+System.out.println(users.findUser(getid));
+						outdata.setUser(user);
 						
 						oos.writeObject(outdata);
 						

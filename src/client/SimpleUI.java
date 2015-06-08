@@ -336,6 +336,8 @@ public class SimpleUI extends JFrame {
 							sendd.setGoods(goods);
 							sendd.setFlags("GOODINFO");
 							
+							double moneyincrement = 0;//Updata with 小计
+							
 							try {
 								outputToServer.writeObject(sendd);
 								try {
@@ -348,9 +350,10 @@ public class SimpleUI extends JFrame {
 								String getname = recvd.getGoods().getName();
 								double getprice=recvd.getGoods().getPrice();
 								int getcount =recvd.getGoods().getCount();
+								moneyincrement=getprice*Integer.parseInt(num);
 								// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
-							tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
-							// 更新数量与总计
+								tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
+								// 更新数量与总计
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -363,7 +366,7 @@ public class SimpleUI extends JFrame {
 							// System.out.println(curnum);
 							sumAmountText.setText(curnum);
 							// sumMoneythesame
-							double moneyincrement = 1.90;//Updata with 小计
+							
 							String oldmoney = sumMoneyText.getText();
 							double currentmoney = moneyincrement+Double.parseDouble(oldmoney);
 							String curmoney = String.format("%.2f", currentmoney);
@@ -371,12 +374,41 @@ public class SimpleUI extends JFrame {
 							sumMoneyText.setText(curmoney);
 							// Should money:
 							// discount get from database!
-							if(discount == -1) {
+										
+							if(discount==-1){
+								Datas sendp = new Datas();
+								Datas recvp = new Datas();
+								User user= new User();
+
+								String userid = customerInfo.getText();
+								user.setUserid(userid);
+								sendp.setUser(user);
+								sendp.setFlags("MEMBERQUERY");
+								
+								try {
+									outputToServer.writeObject(sendp);
+									try {
+										recvp = (Datas) inputFromServer.readObject();
+									} catch (ClassNotFoundException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									discount = recvp.getUser().getAuthority();
+									if(discount==0)
+										discount=10;
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 								
 							}
-							double shouldmoney = currentmoney*discount;
+System.out.println(discount);
+System.out.println(currentmoney);
+							double shouldmoney = currentmoney*(double)discount/10.0;
 							String curshouldmoney = String.format("%.2f", shouldmoney);
 							shouldMoneyText.setText(curshouldmoney);
+							
+							
 						}
 						goodIdInfo.setText("");
 						goodNumInfo.setText("");
