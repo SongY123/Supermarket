@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.*;
 
 import entity.User;
+import util.DEFINE;
+import entity.Datas;
 
 @SuppressWarnings("serial")
 public class SimpleUI extends JFrame {
@@ -49,6 +51,8 @@ public class SimpleUI extends JFrame {
 	JButton commit;
 	JButton next;
 	
+	//discount global 
+	int discount = -1;
 	//constants
 	private static final Font fontc = new Font("微软雅黑",Font.PLAIN+Font.BOLD,20);
 	private static final Font fonte = new Font("Calibri",Font.PLAIN,16);
@@ -321,12 +325,12 @@ public class SimpleUI extends JFrame {
 						String id = goodIdInfo.getText();
 						String num = goodNumInfo.getText();	
 						if(!(id.equals("")||num.equals(""))) {
+							Datas sendd = new Datas();
+							
 							// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
 							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");						
 							// 更新数量与总计
-							// outputToServer。writeUTF(id);
-							// String name = inputFromServer.readUTF();
-							// double price = inputFromServer.readDouble();
+							
 							int numincrement = Integer.parseInt(num);
 							String oldnum = sumAmountText.getText();
 							int currentnum = numincrement+Integer.parseInt(oldnum);
@@ -342,7 +346,9 @@ public class SimpleUI extends JFrame {
 							sumMoneyText.setText(curmoney);
 							// Should money:
 							// discount get from database!
-							double discount = 0.9;
+							if(discount == -1) {
+								
+							}
 							double shouldmoney = currentmoney*discount;
 							String curshouldmoney = String.format("%.2f", shouldmoney);
 							shouldMoneyText.setText(curshouldmoney);

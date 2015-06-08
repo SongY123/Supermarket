@@ -9,10 +9,10 @@ public class Client{
 		//runClient();
 		// SimpleUI sui = new SimpleUI();
 		@SuppressWarnings("unused")
-		//ManagerUI mui = new ManagerUI();
-		LoginUI lui = new LoginUI();
+		ManagerUI mui = new ManagerUI("dd");
+		//LoginUI lui = new LoginUI();
 	}
-	
+	/*
 	public static void runClient(){
 		int int_select=0;
 		
@@ -28,4 +28,5 @@ public class Client{
 		UserExt.login();//ÓÃ»§µÇÂ¼
 		System.out.println(Message.OUTPUT_START+Message.OUTPUT_START+Message.OUTPUT_START);
 	}
+	*/
 }
