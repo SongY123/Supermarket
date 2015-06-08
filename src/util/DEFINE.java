@@ -18,15 +18,25 @@ public class DEFINE {
 	public static final String SYS_LOGINSUCCESS="LOGINSUCCESS";//登录成功
 	public static final String SYS_LOGINFAIL="LOGINFAIL";//登录失败
 	
+	public static final String SYS_LOGOUTSUCCESS="LOGOUTSUCCESS";//登出成功
+	public static final String SYS_LOGOUTFAIL="LOGOUTFAIL";//登出失败
+	
+	public static final String SYS_GOODS_PRICE="GOODSPRICE";//查询单价和数量
+	public static final String SYS_GOODS_OUT="GOODSOUT";//商品出库，商品数量减少
+	public static final String SYS_GOODS_LACK="GOODSLACK";//库存不够
+	public static final String SYS_MEMBER_QUERY="MEMBERQUERY";//查询会员
+	
+	public static final String SYS_BALANCE="BALANCE";//结算
+	
+	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限
 	public static final String SYS_OPERATOR_SUCCESS="OPERATORSUCCESS";//操作成功
 	public static final String SYS_OPERATOR_FAIL="OPERATORFAIL";//操作失败
 	public static final String SYS_GOODS_IN="GOODSIN";//商品入库
-	public static final String SYS_GOODS_OUT="GOODSOUT";//商品出库
 	public static final String SYS_GOODS_ADD="GOODSADD";//添加商品
 	public static final String SYS_STOCK_ENOUGH="GOODSENOUGH";//库存商品不足
 	public static final String SYS_GOODS_QUERY_BYID="GOODSQUERYBYID";//按ID查询商品
 	public static final String SYS_GOODS_QUERY_ALL="GOODSQUERYALL";//查询全部商品
-	public static final String SYS_MEMBER_QUERY="MEMBERQUERY";//查询会员
+	*/
 }

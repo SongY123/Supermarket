@@ -8,7 +8,6 @@ public class Tools {
 	
 	/*
 	 * 读取配置文件 
-	 */
 	static{
 		try {
 			p.load(Tools.class.getClassLoader().getResourceAsStream(DEFINE.SYS_CONFIG));
@@ -19,9 +18,10 @@ public class Tools {
 	
 	/*
 	 * 根据key获得资源文件的value
-	 */
+	 
 	public static String getValue(String key){
 		System.out.println(key);
 		return p.getProperty(key);
 	}
+		 */
 }

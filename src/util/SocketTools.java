@@ -7,10 +7,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-/*
- * 数据发送业务类
- */
+
 public class SocketTools {
+	/*
 	private static String host=Tools.getValue(DEFINE.SYS_HOST);//服务器地址
 	private static int port=Integer.parseInt(Tools.getValue(DEFINE.SYS_PORT));//服务器端口
 	
@@ -19,7 +18,7 @@ public class SocketTools {
 	 * 注意：Socket发送接收要一次性完成，写成两个函数会导致socket关闭的错误
 	 * 参数：obj发送数据对象
 	 * 返回值：Object类型数据
-	 */
+	  
 	public static Object sendData(Object obj){
 		try {
 			Socket socket=new Socket(host,port);
@@ -49,7 +48,7 @@ public class SocketTools {
 	/*
 	 * 服务器端发送TCP数据包
 	 * 参数:obj:发送数据对象，socket服务器端的
-	 */
+	  
 	public static void sendData(Object obj,Socket socket){
 		try {
 			OutputStream os=socket.getOutputStream();
@@ -63,4 +62,5 @@ public class SocketTools {
 			e.printStackTrace();
 	}
 }
+*/
 }
