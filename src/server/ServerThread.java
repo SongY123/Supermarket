@@ -42,29 +42,11 @@ public class ServerThread extends Thread{
 					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
 						
 					}
-					//入库、出库请求
-					else if(datas.getFlags().equals(DEFINE.SYS_GOODS_IN) || datas.getFlags().equals(DEFINE.SYS_GOODS_OUT)){
-						GoodsExt.stockInOutCheck(datas, socket);
+					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+						
 					}
-					
-					//添加商品请求
-					if(datas.getFlags().equals(DEFINE.SYS_GOODS_ADD)){
-						GoodsExt.stockAddCheck(datas, socket);
-					}
-					
-					//按商品id查询请求
-					if(datas.getFlags().equals(DEFINE.SYS_GOODS_QUERY_BYID)){
-						GoodsExt.replyGoodsQueryByid(datas, socket);
-					}
-					
-					//查询全部商品
-					if(datas.getFlags().equals(DEFINE.SYS_GOODS_QUERY_ALL)){
-						GoodsExt.replyGoodsQueryAll(datas,socket);
-					}
-					
-					//查询会员请求
-					if(datas.getFlags().equals(DEFINE.SYS_MEMBER_QUERY)){
-						MemberExt.checkMemberScore(datas, socket);
+					else if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+						
 					}
 				}
 			} catch (ClassNotFoundException e) {
