@@ -56,7 +56,8 @@ public class EmployeeDB {
 		try {
 			FindEmployee.setString(1, Username);
 			ResultSet resultSet = FindEmployee.executeQuery();
-			return resultSet.getInt(3);
+			if(resultSet.next())return resultSet.getInt(3);
+			else return -1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,7 +68,8 @@ public class EmployeeDB {
 		try {
 			FindEmployee.setString(1, Username);
 			ResultSet resultSet = FindEmployee.executeQuery();
-			return resultSet.getInt(4);
+			if(resultSet.next())return resultSet.getInt(4);
+			else return -1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +79,7 @@ public class EmployeeDB {
 	public int loginEmployee(String Username,String Password){
 		int tag = verifyEmployee(Username,Password);
 		if(tag==-1)return 0;//ÃÜÂë´íÎó
-		else if(tag==1)return -1;//ÖØ¸´µÇÂ¼
+		else if(tag==0)return -1;//ÖØ¸´µÇÂ¼
 		else {
 			try {
 				LoginEmployee.setString(1, Username);
@@ -90,7 +92,7 @@ public class EmployeeDB {
 		}
 	}
 	
-	public int loginoutEmployee(String Username){
+	public int logoutEmployee(String Username){
 		int tag = findEmployeeonline(Username);
 		if(tag==-1||tag==0)return -1;//ÒÑ¾­µÇ³ö
 		else {

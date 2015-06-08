@@ -40,37 +40,50 @@ public class ServerThread extends Thread{
 	}
 	
 	public void run(){
-		System.out.print(1);
 			try {
-				System.out.print(2);
 				is=socket.getInputStream();
-				System.out.print(3);
 				ois=new ObjectInputStream(is);
-				System.out.print(4);
 				os = socket.getOutputStream();
-				System.out.print(5);
 				oos = new ObjectOutputStream(os);
-				System.out.print(6);
 				while(true){
-					System.out.print(1);
 			
 					Datas datas = (Datas) ois.readObject();
 					
 					//µÇÂ¼ÇëÇó
 					if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
+						System.out.println("µÇÂ¼");
 						User u = datas.getUser();
 						int tag = employees.loginEmployee(u.getUserid(),u.getPassword());
+						System.out.println(u.getUserid()+" "+u.getPassword());
 						Datas outdata = new Datas();
 						if(tag==0||tag==-1){//ÃÜÂë´íÎó,ÖØ¸´µÇÂ¼£¬µÇÂ¼Ê§°Ü
+							System.out.println("µÇÂ¼Ê§°Ü");
 							outdata.setFlags(DEFINE.SYS_LOGINFAIL);
 						}
 						else{
+							System.out.println("µÇÂ¼³É¹¦");
+							u.setAuthority(employees.findEmployeelevel(u.getUserid()));
 							outdata.setFlags(DEFINE.SYS_LOGINSUCCESS);
+							outdata.setUser(u);
 						}
 						oos.writeObject(outdata);
 					}
 					else if(DEFINE.SYS_LOGOUT.equals(datas.getFlags())){//µÇ³ö
-						
+						System.out.println("µÇ³ö");
+						User u = datas.getUser();
+						int tag = employees.logoutEmployee(u.getUserid());
+						Datas outdata = new Datas();
+						if(tag==-1){//µÇ³öÊ§°Ü
+							System.out.println("µÇ³öÊ§°Ü");
+							outdata.setFlags(DEFINE.SYS_LOGOUTFAIL);
+						}
+						else{
+							System.out.println("µÇÂ¼³É¹¦");
+							u.setAuthority(employees.findEmployeelevel(u.getUserid()));
+							outdata.setFlags(DEFINE.SYS_LOGOUTSUCCESS);
+							outdata.setUser(u);
+						}
+						oos.writeObject(outdata);
 					}
 					else if(DEFINE.SYS_GOODS_INFO.equals(datas.getFlags())){//²éÑ¯ÉÌÆ·ÐÅÏ¢
 						
@@ -84,9 +97,9 @@ public class ServerThread extends Thread{
 					
 				}
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 	}
 
