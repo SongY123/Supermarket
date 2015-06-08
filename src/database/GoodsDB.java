@@ -50,9 +50,10 @@ public class GoodsDB {
 	public String findGoodname(String id){
 		try {
 			FindGood.setString(1, id);
-			ResultSet resultSet = FindGood.executeQuery();
-System.out.println(resultSet);
-			return resultSet.getCursorName();
+			ResultSet resultSet = FindGood.executeQuery();		
+			if(resultSet.next()){
+				return resultSet.getString(2);
+			}		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +65,10 @@ System.out.println(resultSet);
 		try {
 			FindGood.setString(1, id);
 			ResultSet resultSet = FindGood.executeQuery();
-			return resultSet.getDouble(4);
+			if(resultSet.next()){
+				return resultSet.getDouble(4);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
