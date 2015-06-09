@@ -46,11 +46,10 @@ public class ServerThread extends Thread{
 				ois=new ObjectInputStream(is);
 				os = socket.getOutputStream();
 				oos = new ObjectOutputStream(os);
-				while(true){
-			
+				while(true){			
 					Datas datas = (Datas) ois.readObject();
-System.out.println(datas);		
-System.out.println(datas.getFlags());
+					System.out.println(datas);		
+					System.out.println(datas.getFlags());
 					//µ«¬º«Î«Û
 					if(DEFINE.SYS_LOGIN.equals(datas.getFlags())){
 						System.out.println("µ«¬º");
@@ -107,7 +106,7 @@ System.out.println(datas.getFlags());
 						User user = new User();
 						user.setUserid(getid);
 						user.setAuthority(users.findUser(getid));
-System.out.println(users.findUser(getid));
+						System.out.println(users.findUser(getid));
 						outdata.setUser(user);
 						
 						oos.writeObject(outdata);
@@ -118,6 +117,38 @@ System.out.println(users.findUser(getid));
 					}
 					else if(DEFINE.SYS_BALANCE.equals(datas.getFlags())){//’Àµ•
 						
+					}
+					else if(DEFINE.SYS_RETURN_GOOD.equals(datas.getFlags())) { //ÕÀªı…Í«Î
+						Goods tempgood = new Goods();
+						tempgood = datas.getGoods();
+						String goodid = tempgood.getGoodid();
+						int goodcount = tempgood.getCount();
+						Datas tempdatas = new Datas();
+						if(goods.updateGood(goodid, -goodcount)) {
+							tempdatas.setFlags(DEFINE.SYS_RETURN_GOOD_SUCCESS);
+						}
+						else {
+							tempdatas.setFlags(DEFINE.SYS_RETURN_GOOD_FAIL);
+						}
+						tempdatas.setGoods(tempgood);
+						oos.writeObject(tempdatas);				
+					}
+					else if(DEFINE.SYS_ADD_GOOD.equals(datas.getFlags())) { //ÃÌº”…Ã∆∑…Í«Î
+						Goods tempgoods = new Goods();
+						tempgoods = datas.getGoods();
+						String goodid = tempgoods.getGoodid();
+						String goodname = tempgoods.getName();
+						int goodcount = tempgoods.getCount();
+						double goodprice = tempgoods.getPrice();
+						Datas tempdatas = new Datas();
+						if(goods.insertGood(goodid, goodname, goodcount, goodprice)) {
+							tempdatas.setFlags(DEFINE.SYS_ADD_GOOD_SUCCESS);
+						}
+						else {
+							tempdatas.setFlags(DEFINE.SYS_ADD_GOOD_FAIL);
+						}		
+						tempdatas.setGoods(tempgoods);
+						oos.writeObject(tempdatas);
 					}
 					
 				}
