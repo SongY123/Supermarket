@@ -21,6 +21,7 @@ import javax.swing.Timer;
 
 import entity.Datas;
 import entity.Goods;
+import entity.User;
 import util.DEFINE;
 
 
@@ -81,6 +82,9 @@ public class ManagerUI extends JFrame{
 	String editprice;
 	JButton goodDelete;
 	String deleteid;
+	
+	//discount global 
+	int discount = -1;
 	
 	//constants
 	private static final Font fontc = new Font("微软雅黑",Font.PLAIN+Font.BOLD,20);
@@ -375,40 +379,100 @@ public class ManagerUI extends JFrame{
 		
 		
 		addItemButton.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String id = goodIdInfo.getText();
-						String num = goodNumInfo.getText();	
-						if(!(id.equals("")||num.equals(""))) {
-							//先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
-							tarea.append(" "+id+"\t"+"名称可能很长"+"\t\t"+num+"\t"+"单价"+"\t"+"小计"+"\n");						
-							//更新数量与总计
-							int numincrement = Integer.parseInt(num);
-							String oldnum = sumAmountText.getText();
-							int currentnum = numincrement+Integer.parseInt(oldnum);
-							String curnum = String.valueOf(currentnum);
-							// System.out.println(curnum);
-							sumAmountText.setText(curnum);
-							// sumMoneythesame
-							double moneyincrement = 1.90;//Updata with 小计
-							String oldmoney = sumMoneyText.getText();
-							double currentmoney = moneyincrement+Double.parseDouble(oldmoney);
-							String curmoney = String.format("%.2f", currentmoney);
-							// System.out.println(curmoney);
-							sumMoneyText.setText(curmoney);
-							// Should money:
-							// discount get from database!
-							double discount = 0.9;
-							double shouldmoney = currentmoney*discount;
-							String curshouldmoney = String.format("%.2f", shouldmoney);
-							shouldMoneyText.setText(curshouldmoney);
-						}
-						goodIdInfo.setText("");
-						goodNumInfo.setText("");
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String id = goodIdInfo.getText();
+					String num = goodNumInfo.getText();	
+					boolean flag = false;
+					if(!(id.equals("")||num.equals(""))) {
+						Datas sendd = new Datas();
+						Datas recvd = new Datas();
+						Goods goods = new Goods();
+
+						goods.setGoodid(id);;
+						goods.setCount(Integer.parseInt(num));
+						sendd.setGoods(goods);
+						sendd.setFlags("GOODINFO");
 						
+						double moneyincrement = 0;//Updata with 小计
+						
+						try {
+							outputToServer.writeObject(sendd);
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String getid=recvd.getGoods().getGoodid();
+							String getname = recvd.getGoods().getName();
+							double getprice=recvd.getGoods().getPrice();
+							int getcount =recvd.getGoods().getCount();
+							moneyincrement=getprice*Integer.parseInt(num);
+							// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
+							flag = (getprice==0.0);
+							if(!flag) {
+								tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
+							}// 更新数量与总计
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
+							if(!flag) {					
+								int numincrement = Integer.parseInt(num);
+								String oldnum = sumAmountText.getText();
+								int currentnum = numincrement+Integer.parseInt(oldnum);
+								String curnum = String.valueOf(currentnum);
+								// System.out.println(curnum);
+								sumAmountText.setText(curnum);
+								// sumMoneythesame
+								
+								String oldmoney = sumMoneyText.getText();
+								double currentmoney = moneyincrement+Double.parseDouble(oldmoney);
+								String curmoney = String.format("%.2f", currentmoney);
+								// System.out.println(curmoney);
+								sumMoneyText.setText(curmoney);
+								// Should money:
+								// discount get from database!
+										
+								if(discount==-1){
+									Datas sendp = new Datas();
+									Datas recvp = new Datas();
+									User user= new User();
+	
+									String userid = customerInfo.getText();
+									user.setUserid(userid);
+									sendp.setUser(user);
+									sendp.setFlags("MEMBERQUERY");
+									
+									try {
+										outputToServer.writeObject(sendp);
+										try {
+											recvp = (Datas) inputFromServer.readObject();
+										} catch (ClassNotFoundException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+										discount = recvp.getUser().getAuthority();
+										if(discount==0)
+											discount=10;
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}									
+								}
+								System.out.println(discount);
+								System.out.println(currentmoney);
+								double shouldmoney = currentmoney*(double)discount/10.0;
+								String curshouldmoney = String.format("%.2f", shouldmoney);
+								shouldMoneyText.setText(curshouldmoney);
+							}							
 					}
+					goodIdInfo.setText("");
+					goodNumInfo.setText("");					
 				}
-			); 
+			}); 
 		
 		resetItemButton.addActionListener(
 				new ActionListener() {
@@ -449,6 +513,7 @@ public class ManagerUI extends JFrame{
 						shouldMoneyText.setText("0000.00");
 						inputMoneyText.setText("");
 						changeText.setText("0.00");
+						discount=-1;
 					}
 				}
 			); 
