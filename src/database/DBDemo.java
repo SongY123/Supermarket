@@ -1,8 +1,10 @@
 package database;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashMap;
@@ -42,8 +44,7 @@ public class DBDemo {
 		System.out.println("Database connected!");
 	}
 	void initialGoodsDB() throws IOException{
-		FileReader reader = new FileReader(".//src//database//Goods.txt");
-		BufferedReader br = new BufferedReader(reader);
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(".//src//database//Goods.txt"),"UTF-8"));
 		String line = null;
 		while((line = br.readLine())!=null){
 			String []strs = line.split("#");
