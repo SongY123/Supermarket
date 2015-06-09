@@ -15,7 +15,7 @@ public class GoodsDB {
 		try {
 			this.connection = connection;
 			FindGood = connection.prepareStatement("select * from good where id = ?");
-			InsertGood = connection.prepareStatement("insert into good values(?,?)");
+			InsertGood = connection.prepareStatement("insert into good values(?,?,?,?)");
 			UpdateGood = connection.prepareStatement("update good set count = ? where id = ?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

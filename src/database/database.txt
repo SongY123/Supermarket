@@ -24,7 +24,7 @@ PRIMARY KEY(id,time)
 Goods
 CREATE TABLE good(
 id VARCHAR(16) NOT NULL,
-name VARCHAR(20),
+name VARCHAR(200),
 count int(10) NOT NULL,
 price decimal(10,2),
 PRIMARY KEY(id)
