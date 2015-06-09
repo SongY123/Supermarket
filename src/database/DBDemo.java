@@ -24,7 +24,7 @@ public class DBDemo {
 	public DBDemo() {
 		try {
 			linkdatabase();
-			//initialEmployeeDB();
+			initialEmployeeDB();
 			initialGoodsDB();
 			initialUsersDB();
 		} catch (Exception e) {
