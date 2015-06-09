@@ -55,6 +55,9 @@ public class DEFINE {
 	
 	public static final String SYS_SALE_QUERY="SALEQUERY"; //人员删除失败
 	
+	public static final String SYS_CUSTOMER="CUSTOMER"; //人员删除失败
+	
+	
 	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限

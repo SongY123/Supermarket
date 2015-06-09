@@ -429,7 +429,10 @@ public class AdministratorUI extends JFrame{
 							// 先向服务器请求，得到单价、商品名称，计算出小计，先填入textarea
 							flag = (getprice==0.0);
 							if(!flag) {
-								tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
+								if(getname.length()>8)
+									tarea.append(" "+getid+"\t"+getname+"\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
+								else 
+									tarea.append(" "+getid+"\t"+getname+"\t\t"+getcount+"\t"+getprice+"\t"+getprice*Integer.parseInt(num)+"\n");						
 							}// 更新数量与总计
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -531,6 +534,20 @@ public class AdministratorUI extends JFrame{
 								e1.printStackTrace();
 							}
 							
+						}
+						if(!userInfo.getText().equals("")) {
+							String userid = customerInfo.getText();
+							Datas sendd = new Datas();
+							sendd.setFlags(DEFINE.SYS_CUSTOMER);
+							User u = new User();
+							u.setUserid(userid);
+							sendd.setUser(u); //here u is the customer
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}							
 						}
 					}
 				}

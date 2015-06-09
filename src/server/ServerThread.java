@@ -244,6 +244,11 @@ public class ServerThread extends Thread{
 						tempdatas.setSumTrade(sumOfTrade);
 						oos.writeObject(tempdatas);
 					}
+					else if(DEFINE.SYS_CUSTOMER.equals(datas.getFlags())) {
+						String cusid = datas.getUser().getUserid();
+						int oldlevel = users.findUser(cusid);
+						users.updateLevel(cusid, oldlevel-1);
+					}
 					
 				}
 			} catch (ClassNotFoundException e) {

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class UsersDB {
 	private PreparedStatement FindUser;//查找用户
 	private PreparedStatement InsertUser;//插入用户,帐号，会员等级
+	private PreparedStatement UpdateLevel;
 	@SuppressWarnings("unused")
 	private Connection connection;
 	public UsersDB(Connection connection){
@@ -15,6 +16,7 @@ public class UsersDB {
 			this.connection = connection;
 			FindUser = connection.prepareStatement("select * from user where id = ?");
 			InsertUser = connection.prepareStatement("insert into user values(?,?)");
+			UpdateLevel = connection.prepareStatement("update user set level = ? where id = ?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,5 +46,23 @@ public class UsersDB {
 		return 0;
 
 	}
+	
+	public boolean updateLevel(String id, int level) {
+		try {
+			UpdateLevel.setString(2, id);
+			UpdateLevel.setInt(1, level);
+			int i = UpdateLevel.executeUpdate();
+			if(i>0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
 	
 }
