@@ -112,12 +112,12 @@ public class ServerThread extends Thread{
 						oos.writeObject(outdata);
 						
 					}
-					else if(DEFINE.SYS_GOODS_OUT.equals(datas.getFlags())){//商品出库
+	/*				else if(DEFINE.SYS_GOODS_OUT.equals(datas.getFlags())){//商品出库
 						
 					}
 					else if(DEFINE.SYS_BALANCE.equals(datas.getFlags())){//账单
 						
-					}
+					}*/
 					else if(DEFINE.SYS_ADD_TRADE.equals(datas.getFlags())){//添加交易记录
 						String getid=datas.getTrade().getid();
 						double cost = datas.getTrade().getCost();
@@ -162,7 +162,7 @@ public class ServerThread extends Thread{
 						tempdatas.setGoods(tempgoods);
 						oos.writeObject(tempdatas);
 					}
-					else if(DEFINE.SYS_EDIT_GOOD.equals(datas.getFlags())) {
+					else if(DEFINE.SYS_EDIT_GOOD.equals(datas.getFlags())) {//编辑商品
 						Goods tempgoods = new Goods();
 						tempgoods = datas.getGoods();
 						String goodid = tempgoods.getGoodid();
@@ -186,7 +186,7 @@ public class ServerThread extends Thread{
 						tempdatas.setGoods(tempgoods);
 						oos.writeObject(tempdatas);
 					}
-					else if(DEFINE.SYS_DELETE_GOOD.equals(datas.getFlags())) {
+					else if(DEFINE.SYS_DELETE_GOOD.equals(datas.getFlags())) {//移除商品
 						Goods tempgoods = new Goods();
 						tempgoods = datas.getGoods();
 						Datas tempdatas = new Datas();
@@ -200,7 +200,7 @@ public class ServerThread extends Thread{
 						tempdatas.setGoods(tempgoods);
 						oos.writeObject(tempdatas);
 					}
-					else if(DEFINE.SYS_EDIT_EMPLOYEE.equals(datas.getFlags())) {
+					else if(DEFINE.SYS_EDIT_EMPLOYEE.equals(datas.getFlags())) {//编辑员工信息
 						User tempu = new User();
 						tempu = datas.getUser();
 						String uid = tempu.getUserid();
@@ -222,7 +222,7 @@ public class ServerThread extends Thread{
 						}						
 						oos.writeObject(tempdatas);
 					}
-					else if(DEFINE.SYS_DELETE_EMPLOYEE.equals(datas.getFlags())) {
+					else if(DEFINE.SYS_DELETE_EMPLOYEE.equals(datas.getFlags())) {//移除员工
 						User tempu = new User();
 						tempu = datas.getUser();
 						String uid = tempu.getUserid();
