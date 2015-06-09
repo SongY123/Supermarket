@@ -457,7 +457,7 @@ System.out.println(currentmoney);
 						shouldMoneyText.setText("0000.00");
 						inputMoneyText.setText("");
 						changeText.setText("0.00");
-						
+						discount=-1;
 					}
 				}
 			); 
