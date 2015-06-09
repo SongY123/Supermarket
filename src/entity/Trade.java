@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 @SuppressWarnings("serial")
 public class Trade implements Serializable{

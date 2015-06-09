@@ -1,14 +1,5 @@
 package entity;
 
-import java.net.Socket;
-import java.util.HashMap;
-import util.DEFINE;
-import util.FileTools;
-import util.InputTools;
-import util.Message;
-import util.SocketTools;
-import util.Tools;
-
 public class UserExt {
 	/*
 	//用户数据文件

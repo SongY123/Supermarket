@@ -506,7 +506,6 @@ public class AdministratorUI extends JFrame{
 							changeText.setText(changes);
 							
 							Datas sendd = new Datas();
-							Datas recvd = new Datas();
 							
 							Trade trade = new Trade();
 							trade.setid(customerInfo.getText());
@@ -1260,13 +1259,40 @@ public class AdministratorUI extends JFrame{
 						employeeid = idText.getText();
 						employeestate = stateText.getText();
 						if(!employeeid.equals("")) {
-							int state = Integer.parseInt(employeestate);
+							int state = -1;
+							if(!employeestate.equals("")) {
+								state = Integer.parseInt(employeestate);
+							}
 							Datas sendd = new Datas();
 							Datas recvd = new Datas();
 							//sendd.setFlags(DEFINE.SYS_EDIT_EMPLOEE);
 							User u = new User();
 							u.setUserid(employeeid);
 							u.setAuthority(state);
+							sendd.setFlags(DEFINE.SYS_EDIT_EMPLOYEE);
+							sendd.setUser(u);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_EDIT_EMPLOYEE_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "±à¼­³É¹¦", "±à¼­ÌáÊ¾", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "±à¼­Ê§°Ü", "±à¼­ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							}
 							idText.setText("");
 							stateText.setText("");
 							setVisible(false);
@@ -1291,15 +1317,49 @@ public class AdministratorUI extends JFrame{
 			);
 			
 			deleteButton.addActionListener(
-					new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							// Óëserver½»»¥
-							idText.setText("");
-							stateText.setText("");
-							// setVisible(false);
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String empid = idText.getText();
+						if(!empid.equals("")) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							//sendd.setFlags(DEFINE.SYS_EDIT_EMPLOEE);
+							User u = new User();
+							u.setUserid(empid);
+							sendd.setFlags(DEFINE.SYS_DELETE_EMPLOYEE);
+							sendd.setUser(u);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_DELETE_EMPLOYEE_FAIL)) {
+								JOptionPane.showMessageDialog(null, "É¾³ýÊ§°Ü", "É¾³ýÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "É¾³ý³É¹¦", "É¾³ýÌáÊ¾", JOptionPane.PLAIN_MESSAGE);
+							}
 						}
+						else {
+							JOptionPane.showMessageDialog(null, "É¾³ýÊ§°Ü - ÊäÈëÄÚÈÝ", "É¾³ýÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+						}
+						idText.setText("");
+						stateText.setText("");
+						setVisible(false);
 					}
-				);
+				}
+			);
 		}
 	}
 }

@@ -1,15 +1,5 @@
 package entity;
 
-import java.net.Socket;
-import java.util.HashMap;
-import java.util.Iterator;
-import util.DEFINE;
-import util.FileTools;
-import util.InputTools;
-import util.Message;
-import util.SocketTools;
-import util.Tools;
-
 public class GoodsExt {
 	//goodsÎÄ¼şÂ·¾¶
 	/*

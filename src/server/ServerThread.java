@@ -14,10 +14,7 @@ import database.TradeDB;
 import database.UsersDB;
 import entity.Datas;
 import entity.Goods;
-import entity.GoodsExt;
-import entity.MemberExt;
 import entity.User;
-import entity.UserExt;
 import util.DEFINE;
 
 
@@ -201,6 +198,41 @@ public class ServerThread extends Thread{
 							}								
 						}
 						tempdatas.setGoods(tempgoods);
+						oos.writeObject(tempdatas);
+					}
+					else if(DEFINE.SYS_EDIT_EMPLOYEE.equals(datas.getFlags())) {
+						User tempu = new User();
+						tempu = datas.getUser();
+						String uid = tempu.getUserid();
+						int ulevel = tempu.getAuthority();
+						Datas tempdatas = new Datas();
+						tempdatas.setFlags(DEFINE.SYS_EDIT_EMPLOYEE_FAIL);
+						int type = employees.findEmployeelevel(uid);
+						if(ulevel != -1) {
+							if(type == -1) {
+								if(employees.insertEmployee(uid, uid, ulevel)) {
+									tempdatas.setFlags(DEFINE.SYS_EDIT_EMPLOYEE_SUCCESS);
+								}
+							}
+							else {
+								if(employees.editEmployee(uid, ulevel)) {
+									tempdatas.setFlags(DEFINE.SYS_EDIT_EMPLOYEE_SUCCESS);
+								}							
+							}
+						}						
+						oos.writeObject(tempdatas);
+					}
+					else if(DEFINE.SYS_DELETE_EMPLOYEE.equals(datas.getFlags())) {
+						User tempu = new User();
+						tempu = datas.getUser();
+						String uid = tempu.getUserid();
+						Datas tempdatas = new Datas();
+						tempdatas.setFlags(DEFINE.SYS_DELETE_EMPLOYEE_FAIL);
+						if(!uid.equals("")) {
+							if(employees.deleteEmployee(uid)) {
+								tempdatas.setFlags(DEFINE.SYS_DELETE_EMPLOYEE_SUCCESS);
+							}
+						}
 						oos.writeObject(tempdatas);
 					}
 					

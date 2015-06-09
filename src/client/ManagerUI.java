@@ -498,7 +498,6 @@ public class ManagerUI extends JFrame{
 							changeText.setText(changes);
 							
 							Datas sendd = new Datas();
-							Datas recvd = new Datas();
 							
 							Trade trade = new Trade();
 							trade.setid(customerInfo.getText());

@@ -10,11 +10,11 @@ import database.EmployeeDB;
 import database.GoodsDB;
 import database.TradeDB;
 import database.UsersDB;
-
 import server.ServerThread;
 
 public class Server {
 	private ServerSocket serverSocket;
+	@SuppressWarnings("unused")
 	private int ClientCount = 0;
 	private int serverPort = 8000;//·şÎñÆ÷¶Ë¿Ú
 	private Connection connection;

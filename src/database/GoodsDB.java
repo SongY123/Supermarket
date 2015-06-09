@@ -1,12 +1,9 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import entity.Goods;
 
 public class GoodsDB {
 	private PreparedStatement FindGood;//查找商品
@@ -15,6 +12,7 @@ public class GoodsDB {
 	private PreparedStatement UpdateGoodName;//商品名称更改
 	private PreparedStatement UpdateGoodPrice;//商品单价更改
 	private PreparedStatement DeleteGood;//商品单价更改
+	@SuppressWarnings("unused")
 	private Connection connection;
 	public GoodsDB(Connection connection){
 		try {

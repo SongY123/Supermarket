@@ -12,7 +12,6 @@ import java.net.*;
 import entity.Goods;
 import entity.Trade;
 import entity.User;
-import util.DEFINE;
 import entity.Datas;
 
 @SuppressWarnings("serial")
@@ -445,7 +444,6 @@ public class SimpleUI extends JFrame {
 							changeText.setText(changes);
 							
 							Datas sendd = new Datas();
-							Datas recvd = new Datas();
 							
 							Trade trade = new Trade();
 							trade.setid(customerInfo.getText());

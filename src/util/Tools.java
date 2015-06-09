@@ -1,9 +1,9 @@
 package util;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class Tools {
+	@SuppressWarnings("unused")
 	private static Properties p=new Properties();
 	
 	/*

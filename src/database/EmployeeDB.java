@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +11,10 @@ public class EmployeeDB {
 	private PreparedStatement VerifyEmployee;//验证用户名和密码
 	private PreparedStatement LoginEmployee;//登录
 	private PreparedStatement LogoutEmployee;//登出
+	//private PreparedStatement AddEmployee; //添加
+	private PreparedStatement EditEmployee; //编辑雇员信息
+	private PreparedStatement DeleteEmployee; //删除雇员
+	@SuppressWarnings("unused")
 	private Connection connection;
 	public EmployeeDB(Connection connection){
 		try {
@@ -21,20 +24,29 @@ public class EmployeeDB {
 			VerifyEmployee = connection.prepareStatement("select * from employee where id = ? and password = ?");
 			LoginEmployee = connection.prepareStatement("update employee set online = 1 where id = ?");
 			LogoutEmployee = connection.prepareStatement("update employee set online = 0 where id = ?");
+			EditEmployee = connection.prepareStatement("update employee set level = ? where id = ?");
+			DeleteEmployee = connection.prepareStatement("delete from employee where id = ?");
+			//AddEmployee = connection.prepareStatement("insert into employee values(?,?,?,0)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void insertEmployee(String Username,String Password,int level){
+	
+	public boolean insertEmployee(String Username,String Password,int level){
 		try {
 			InsertEmployee.setString(1, Username);
 			InsertEmployee.setString(2, Password);
 			InsertEmployee.setInt(3, level);
-			InsertEmployee.executeUpdate();//更新数据库
+			int i = InsertEmployee.executeUpdate();//更新数据库
+			if(i>0)
+				return true;
+			else 
+				return false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -104,6 +116,37 @@ public class EmployeeDB {
 				e.printStackTrace();
 			}
 			return 1;
+		}
+	}
+	
+	public boolean editEmployee(String id, int auth) {
+		try {
+			EditEmployee.setString(2, id);
+			EditEmployee.setInt(1, auth);
+			int i = EditEmployee.executeUpdate();
+			if(i > 0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteEmployee(String id) {
+		try {
+			DeleteEmployee.setString(1, id);
+			int i = DeleteEmployee.executeUpdate();
+			if(i > 0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

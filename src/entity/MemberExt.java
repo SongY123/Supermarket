@@ -1,12 +1,5 @@
 package entity;
 
-import java.net.Socket;
-import java.util.HashMap;
-import util.DEFINE;
-import util.FileTools;
-import util.SocketTools;
-import util.Tools;
-
 //会员信息操作类
 
 public class MemberExt {

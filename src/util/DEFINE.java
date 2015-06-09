@@ -45,6 +45,14 @@ public class DEFINE {
 	public static final String SYS_EDIT_GOOD_FAIL="EDITGOODFAIL"; //修改商品失败
 	
 	public static final String SYS_ADD_TRADE="ADDTRADE"; //添加交易记录
+
+	public static final String SYS_EDIT_EMPLOYEE="EDITEMPLOYEE"; //人员编辑
+	public static final String SYS_EDIT_EMPLOYEE_SUCCESS="EDITEMPLOYEESUCCESS"; //人员编辑成功
+	public static final String SYS_EDIT_EMPLOYEE_FAIL="EDITEMPLOYEEFAIL"; //人员编辑失败
+	public static final String SYS_DELETE_EMPLOYEE="DELETEEMPLOYEE"; //人员删除
+	public static final String SYS_DELETE_EMPLOYEE_SUCCESS="DELETEEMPLOYEESUCCESS"; //人员删除成功
+	public static final String SYS_DELETE_EMPLOYEE_FAIL="DELETEEMPLOYEEFAIL"; //人员删除失败
+	
 	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限

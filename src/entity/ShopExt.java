@@ -1,18 +1,17 @@
 package entity;
 
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import util.DEFINE;
-import util.InputTools;
-import util.Message;
 
 public class ShopExt {
+	@SuppressWarnings("unused")
 	private static double totalprice=0;//总金额
+	@SuppressWarnings("unused")
 	private static HashMap<Integer,Trade> map_shop=null;//存储购物信息
+	@SuppressWarnings("unused")
 	private static Member member=null;//会员信息
+	@SuppressWarnings("unused")
 	private static int uid=0;//收银员编号
+	@SuppressWarnings("unused")
 	private static String code="";//小票编号
 	/*
 	public static int getUid() {

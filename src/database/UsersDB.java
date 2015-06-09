@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,7 @@ import java.sql.SQLException;
 public class UsersDB {
 	private PreparedStatement FindUser;//查找用户
 	private PreparedStatement InsertUser;//插入用户,帐号，会员等级
+	@SuppressWarnings("unused")
 	private Connection connection;
 	public UsersDB(Connection connection){
 		try {

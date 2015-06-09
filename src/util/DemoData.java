@@ -1,15 +1,5 @@
 package util;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
-import entity.Goods;
-import entity.GoodsExt;
-import entity.Member;
-import entity.MemberExt;
-import entity.User;
-import entity.UserExt;
-
 
 public class DemoData {
 	/*
