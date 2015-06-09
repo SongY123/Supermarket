@@ -95,6 +95,7 @@ public class ServerThread extends Thread{
 						good.setPrice(goods.findGoodPrice(getid));
 						if(goods.findGoodname(getid)!=null){
 							good.setName(goods.findGoodname(getid));
+							goods.updateGood(getid, getcount);
 						}
 						else
 							good.setName(getid+" is not exist!");
