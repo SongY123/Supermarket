@@ -15,12 +15,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+import util.DEFINE;
 import entity.Datas;
 import entity.Goods;
+import entity.Trade;
 import entity.User;
 
 @SuppressWarnings("serial")
@@ -492,8 +495,8 @@ public class AdministratorUI extends JFrame{
 		commit.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						// Send message to server, and check
 						if(!inputMoneyText.getText().equals("")) {
-							// Send message to server, and check
 							String shouldm = shouldMoneyText.getText();
 							double shouldmd = Double.parseDouble(shouldm);
 							String realm = inputMoneyText.getText();
@@ -501,6 +504,26 @@ public class AdministratorUI extends JFrame{
 							double changed = realmd-shouldmd;
 							String changes = String.format("%.2f", changed);
 							changeText.setText(changes);
+							
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							
+							Trade trade = new Trade();
+							trade.setid(customerInfo.getText());
+							trade.setCost(shouldmd);
+							Date d=new Date();
+							trade.setDate(d.toString());
+							
+							sendd.setTrade(trade);
+							sendd.setFlags("ADDTRADE");
+							
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 						}
 					}
 				}
@@ -699,10 +722,46 @@ public class AdministratorUI extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						returnid = idText.getText();
 						returnnum = numText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
+						if(!(returnid.equals("") || returnnum.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(returnid);;
+							goods.setCount(Integer.parseInt(returnnum));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_RETURN_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_RETURN_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "退货提示", "退货成功", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "退货提示", "退货失败", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							numText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "退货提示", "退货失败 - 请输入内容", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
+						}
 					}
 				}
 			); 
@@ -808,12 +867,52 @@ public class AdministratorUI extends JFrame{
 						addnum = numText.getText();
 						addprice = priceText.getText();
 						addname = nameText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
-						priceText.setText("");
-						nameText.setText("");
+						if(!(addid.equals("")||addnum.equals("") || addprice.equals("") || addname.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(addid);;
+							goods.setCount(Integer.parseInt(addnum));
+							goods.setName(addname);
+							goods.setPrice(Double.parseDouble(addprice));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_ADD_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_ADD_GOOD_SUCCESS)) {
+								JOptionPane.showMessageDialog(null, "添加成功", "添加提示", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "添加失败", "添加提示", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "添加失败 - 请输入内容！", "添加提示", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+						}						
 					}
 				}
 			); 
@@ -921,12 +1020,52 @@ public class AdministratorUI extends JFrame{
 						editnum = numText.getText();
 						editprice = priceText.getText();
 						editname = nameText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						numText.setText("");
-						priceText.setText("");
-						nameText.setText("");
+						if(!(editid.equals("")||editnum.equals("")||editprice.equals("")||editname.equals(""))) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(editid);;
+							goods.setCount(Integer.parseInt(editnum));
+							goods.setName(editname);
+							goods.setPrice(Double.parseDouble(editprice));
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_EDIT_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_EDIT_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "编辑成功", "编辑提示", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "编辑失败", "编辑提示", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "编辑失败 - 请输入内容！", "编辑提示", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							numText.setText("");
+							priceText.setText("");
+							nameText.setText("");
+						}
 					}
 				}
 			); 
@@ -992,9 +1131,43 @@ public class AdministratorUI extends JFrame{
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						deleteid = idText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
+						if(!deleteid.equals("")) {
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							Goods goods = new Goods();
+							//send to sever
+							goods.setGoodid(deleteid);;
+							sendd.setGoods(goods);
+							sendd.setFlags(DEFINE.SYS_DELETE_GOOD);
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String returnFlag = recvd.getFlags();
+							if(returnFlag.equals(DEFINE.SYS_DELETE_GOOD_SUCCESS)) {
+								 JOptionPane.showMessageDialog(null, "删除成功", "删除提示", JOptionPane.PLAIN_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "删除失败", "删除提示", JOptionPane.ERROR_MESSAGE);
+							}
+							idText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "删除失败 - 请输入编号！", "删除提示", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+						}
 					}
 				}
 			); 
@@ -1040,7 +1213,7 @@ public class AdministratorUI extends JFrame{
 			bg1.add(idLabel);
 			bg1.add(idText);
 			
-			// 商品数量
+			// 员工状态
 			stateLabel = new JLabel("员工状态：");
 			stateLabel.setFont(fontc1);
 			stateLabel.setBounds(30, 55, 105, 25);
@@ -1076,11 +1249,23 @@ public class AdministratorUI extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						employeeid = idText.getText();
 						employeestate = stateText.getText();
-						//与Server交互
-						//to do
-						idText.setText("");
-						stateText.setText("");
-						// setVisible(false);
+						if(!employeeid.equals("")) {
+							int state = Integer.parseInt(employeestate);
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							//sendd.setFlags(DEFINE.SYS_EDIT_EMPLOEE);
+							User u = new User();
+							u.setUserid(employeeid);
+							u.setAuthority(state);
+							idText.setText("");
+							stateText.setText("");
+							setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "修改失败 - 请输入内容", "修改信息", JOptionPane.ERROR_MESSAGE);
+							idText.setText("");
+							stateText.setText("");
+						}
 					}
 				}
 			); 

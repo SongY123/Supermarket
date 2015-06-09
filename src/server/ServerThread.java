@@ -97,8 +97,6 @@ public class ServerThread extends Thread{
 							good.setName(goods.findGoodname(getid));
 							goods.updateGood(getid, getcount);
 						}
-						else
-							good.setName(getid+" is not exist!");
 						outdata.setGoods(good);
 						
 						oos.writeObject(outdata);
@@ -125,8 +123,7 @@ public class ServerThread extends Thread{
 					else if(DEFINE.SYS_ADD_TRADE.equals(datas.getFlags())){//添加交易记录
 						String getid=datas.getTrade().getid();
 						double cost = datas.getTrade().getCost();
-						String getdate = datas.getTrade().getDate();
-						
+						String getdate = datas.getTrade().getDate();						
 						trades.insertTrade(getid,cost,getdate);
 						
 					}
