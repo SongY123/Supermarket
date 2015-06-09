@@ -89,6 +89,8 @@ public class AdministratorUI extends JFrame{
 	String employeeid;
 	String employeestate;
 	
+	JButton saleButton;
+	
 	//discount global 
 	int discount = -1;
 	
@@ -379,6 +381,12 @@ public class AdministratorUI extends JFrame{
 		employeeManager.setBounds(460, 650, 90, 28);
 		bg.add(employeeManager);
 		
+		//sales
+		saleButton = new JButton("销售查询");
+		saleButton.setFont(fontc3);
+		saleButton.setBounds(460, 22, 90, 28);
+		bg.add(saleButton);
+		
 		add(bg);	
 		
 		this.setTitle("收银系统");
@@ -590,6 +598,35 @@ public class AdministratorUI extends JFrame{
 					}
 				}
 			); 
+		
+		saleButton.addActionListener(
+			new ActionListener() {
+				@SuppressWarnings("unused")
+				public void actionPerformed(ActionEvent e) {
+					Datas sendd = new Datas();
+					Datas recvd = new Datas();
+					sendd.setFlags(DEFINE.SYS_SALE_QUERY);
+					try {
+						outputToServer.writeObject(sendd);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					try {
+						recvd = (Datas) inputFromServer.readObject();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					double sum = recvd.getSumTrade();
+					int num = recvd.getNumTrade();
+					ResultUI rui = new ResultUI(String.valueOf(num),String.valueOf(sum));
+				}
+			}
+		); 
 	}
 
 	
@@ -826,7 +863,7 @@ public class AdministratorUI extends JFrame{
 			nameLabel.setFont(fontc1);
 			nameLabel.setBounds(30, 90, 105, 25);
 			nameText = new JTextField();
-			nameText.setFont(fonte);
+			nameText.setFont(fontc1);
 			nameText.setEditable(true);
 			nameText.setBounds(115, 90, 220, 25);
 			bg1.add(nameLabel);
@@ -979,7 +1016,7 @@ public class AdministratorUI extends JFrame{
 			nameLabel.setFont(fontc1);
 			nameLabel.setBounds(30, 90, 105, 25);
 			nameText = new JTextField();
-			nameText.setFont(fonte);
+			nameText.setFont(fontc1);
 			nameText.setEditable(true);
 			nameText.setBounds(115, 90, 220, 25);
 			bg1.add(nameLabel);
@@ -1361,5 +1398,69 @@ public class AdministratorUI extends JFrame{
 				}
 			);
 		}
+	}
+	
+	//Inner class
+	class ResultUI extends JFrame{
+		JLabel bg;
+		JLabel headresult;
+		JLabel label1;
+		JLabel label2;
+		JLabel label3;
+		JButton enterButton;
+		
+		public ResultUI(String s1, String s2) {
+			setSize(380, 270);
+			bg = new JLabel();
+			// ImageIcon icon = new ImageIcon("images/log/bg.png");
+			// icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT));
+			bg.setBounds(0, 0, 380, 270);  
+	        bg.setHorizontalAlignment(0);  
+	        // bg.setIcon(icon); 
+	        
+	        //head title
+	        ImageIcon headic = new ImageIcon("images/title.png");
+	        headresult = new JLabel(headic);
+	        headresult.setFont(fontc);
+	        headresult.setBounds(85,25,200,25);
+			bg.add(headresult);
+			
+	        ImageIcon moneyicon = new ImageIcon("images/icon.png");
+	        label1 = new JLabel(moneyicon);
+	        label1.setBounds(40, 75, 80, 80);
+	        String s1append = "交易数量： "+s1;
+	        label2 = new JLabel(s1append);
+	        label2.setFont(fontc2);
+	        label2.setBounds(155, 75, 190, 30);
+	        String s2append = "交易金额： "+s2;
+	        label3 =new JLabel(s2append);
+	        label3.setFont(fontc2);
+	        label3.setBounds(155, 115, 190, 30);
+	        
+	        enterButton = new JButton("确认");
+			enterButton.setFont(fontc1);
+			enterButton.setBounds(145, 175, 80, 29);
+			bg.add(enterButton);
+	        
+	        bg.add(label1);
+	        bg.add(label2);
+	        bg.add(label3);
+	        
+	        add(bg);
+	        //display
+	        this.setTitle("交易查询");
+	        this.setLocationRelativeTo(null);
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        this.setVisible(true);
+	        
+	        //listeners
+	        enterButton.addActionListener(
+					new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							setVisible(false);
+						}
+					}
+				); 
+		}	
 	}
 }

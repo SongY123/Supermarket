@@ -156,7 +156,129 @@ public class LoginUI extends JFrame {
 					setInvisible();
 				}
 			}
-		); 
+		);
+        
+        idTextField.addKeyListener(
+        	new KeyAdapter() {
+        		@SuppressWarnings("deprecation")
+				public void keyReleased(KeyEvent e) {
+					int keyCode = e.getKeyCode();
+					if(keyCode == KeyEvent.VK_ENTER) {
+						id = idTextField.getText();
+						pwd = pwdField.getText();
+						System.out.println(id+"\t"+pwd);
+						Datas sendd = new Datas();
+						Datas recvd = new Datas();
+						sendd.setFlags("LOGIN");					
+						User sendu = new User();
+						sendu.setUserid(id);
+						sendu.setPassword(pwd);
+						sendd.setUser(sendu);
+						int auth = 0;
+						try {
+							outputToServer.writeObject(sendd);
+							try {
+								recvd = (Datas) inputFromServer.readObject();
+							} catch (ClassNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							String recvf = recvd.getFlags();
+							if(recvf.equals(DEFINE.SYS_LOGINSUCCESS)) {
+								User recvu = recvd.getUser();
+								auth = recvu.getAuthority();
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"µÇÂ½Ê§°Ü£¡");
+								System.exit(-1);
+							}
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							System.exit(-1);
+						}
+						
+						if(auth == 1) {
+							@SuppressWarnings("unused")
+							SimpleUI sui = new SimpleUI(id);
+						}
+						else if(auth == 2) {
+							@SuppressWarnings("unused")
+							ManagerUI mui = new ManagerUI(id);
+						}
+						else if(auth == 3) {
+							@SuppressWarnings("unused")
+							AdministratorUI aui = new AdministratorUI(id);
+						}
+						else {
+							System.exit(-1);
+						}
+						setInvisible();
+					}
+	        	}
+	        }
+        );
+        
+        pwdField.addKeyListener(
+            	new KeyAdapter() {
+            		@SuppressWarnings("deprecation")
+					public void keyReleased(KeyEvent e) {
+    					int keyCode = e.getKeyCode();
+    					if(keyCode == KeyEvent.VK_ENTER) {
+    						id = idTextField.getText();
+    						pwd = pwdField.getText();
+    						System.out.println(id+"\t"+pwd);
+    						Datas sendd = new Datas();
+    						Datas recvd = new Datas();
+    						sendd.setFlags("LOGIN");					
+    						User sendu = new User();
+    						sendu.setUserid(id);
+    						sendu.setPassword(pwd);
+    						sendd.setUser(sendu);
+    						int auth = 0;
+    						try {
+    							outputToServer.writeObject(sendd);
+    							try {
+    								recvd = (Datas) inputFromServer.readObject();
+    							} catch (ClassNotFoundException e1) {
+    								// TODO Auto-generated catch block
+    								e1.printStackTrace();
+    							}
+    							String recvf = recvd.getFlags();
+    							if(recvf.equals(DEFINE.SYS_LOGINSUCCESS)) {
+    								User recvu = recvd.getUser();
+    								auth = recvu.getAuthority();
+    							}
+    							else {
+    								JOptionPane.showMessageDialog(null,"µÇÂ½Ê§°Ü£¡");
+    								System.exit(-1);
+    							}
+    						} catch (IOException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    							System.exit(-1);
+    						}
+    						
+    						if(auth == 1) {
+    							@SuppressWarnings("unused")
+    							SimpleUI sui = new SimpleUI(id);
+    						}
+    						else if(auth == 2) {
+    							@SuppressWarnings("unused")
+    							ManagerUI mui = new ManagerUI(id);
+    						}
+    						else if(auth == 3) {
+    							@SuppressWarnings("unused")
+    							AdministratorUI aui = new AdministratorUI(id);
+    						}
+    						else {
+    							System.exit(-1);
+    						}
+    						setInvisible();
+    					}
+    	        	}
+    	        }
+            );
         
         cancle.addActionListener(
 			new ActionListener() {

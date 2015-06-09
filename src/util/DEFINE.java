@@ -53,6 +53,8 @@ public class DEFINE {
 	public static final String SYS_DELETE_EMPLOYEE_SUCCESS="DELETEEMPLOYEESUCCESS"; //人员删除成功
 	public static final String SYS_DELETE_EMPLOYEE_FAIL="DELETEEMPLOYEEFAIL"; //人员删除失败
 	
+	public static final String SYS_SALE_QUERY="SALEQUERY"; //人员删除失败
+	
 	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限

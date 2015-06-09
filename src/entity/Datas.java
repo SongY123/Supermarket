@@ -15,6 +15,9 @@ public class Datas implements Serializable{
 	private Trade trade=null;
 	
 	double cost;//Ïû·Ñ½ð¶î
+	
+	double sumTrade;
+	int numTrade;
 	/*
 	public HashMap<Integer, Goods> getMap_goods() {
 		return map_goods;
@@ -22,6 +25,21 @@ public class Datas implements Serializable{
 	public void setMap_goods(HashMap<Integer, Goods> map_goods) {
 		this.map_goods = map_goods;
 	}*/
+	
+	public void setSumTrade(double d) {
+		this.sumTrade = d;
+	}
+	public double getSumTrade() {
+		return this.sumTrade;
+	}
+	
+	public void setNumTrade(int i) {
+		this.numTrade = i;
+	}
+	public int getNumTrade() {
+		return numTrade;
+	}
+	
 	public String getFlags() {
 		return flags;
 	}

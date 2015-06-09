@@ -89,7 +89,7 @@ public class ManagerUI extends JFrame{
 	
 	//constants
 	private static final Font fontc = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN+Font.BOLD,20);
-	private static final Font fonte = new Font("Calibri",Font.PLAIN,16);
+	private static final Font fonte = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,16);
 	private static final Font fontc1 = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,14);
 	private static final Font fontc2 = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN+Font.BOLD,17);
 	private static final Font fontc3 = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,12);
@@ -809,7 +809,7 @@ public class ManagerUI extends JFrame{
 			nameLabel.setFont(fontc1);
 			nameLabel.setBounds(30, 90, 105, 25);
 			nameText = new JTextField();
-			nameText.setFont(fonte);
+			nameText.setFont(fontc1);
 			nameText.setEditable(true);
 			nameText.setBounds(115, 90, 220, 25);
 			bg1.add(nameLabel);
@@ -962,7 +962,7 @@ public class ManagerUI extends JFrame{
 			nameLabel.setFont(fontc1);
 			nameLabel.setBounds(30, 90, 105, 25);
 			nameText = new JTextField();
-			nameText.setFont(fonte);
+			nameText.setFont(fontc1);
 			nameText.setEditable(true);
 			nameText.setBounds(115, 90, 220, 25);
 			bg1.add(nameLabel);

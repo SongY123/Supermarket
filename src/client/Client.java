@@ -6,6 +6,7 @@ public class Client{
 		//runClient();
 		// SimpleUI sui = new SimpleUI();
 		@SuppressWarnings("unused")
+		//AdministratorUI aui = new AdministratorUI("d");
 		// ManagerUI mui = new ManagerUI("dd");
 		LoginUI lui = new LoginUI();
 	}

@@ -235,6 +235,15 @@ public class ServerThread extends Thread{
 						}
 						oos.writeObject(tempdatas);
 					}
+					else if(DEFINE.SYS_SALE_QUERY.equals(datas.getFlags())) {
+						int numOfTrade = trades.queryNumTrade();
+						double sumOfTrade = trades.querySumTrade();
+						Datas tempdatas = new Datas();
+						tempdatas.setFlags(DEFINE.SYS_SALE_QUERY);
+						tempdatas.setNumTrade(numOfTrade);
+						tempdatas.setSumTrade(sumOfTrade);
+						oos.writeObject(tempdatas);
+					}
 					
 				}
 			} catch (ClassNotFoundException e) {
