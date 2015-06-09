@@ -10,6 +10,7 @@ import database.EmployeeDB;
 import database.GoodsDB;
 import database.TradeDB;
 import database.UsersDB;
+
 import server.ServerThread;
 
 public class Server {
@@ -31,13 +32,14 @@ public class Server {
 	}
 	public void linkDatabase() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket","root","");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket","root","root");
 		System.out.println("Driver loaded!");
 		users = new UsersDB(connection);
 		employees = new EmployeeDB(connection);
 		trades = new TradeDB(connection);
 		goods = new GoodsDB(connection);
 		System.out.println("Database connected!");
+		
 	  }
 	public void listen(){
 		  try {
