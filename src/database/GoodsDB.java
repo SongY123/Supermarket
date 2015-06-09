@@ -14,6 +14,7 @@ public class GoodsDB {
 	private PreparedStatement UpdateGood;//商品扣除count
 	private PreparedStatement UpdateGoodName;//商品名称更改
 	private PreparedStatement UpdateGoodPrice;//商品单价更改
+	private PreparedStatement DeleteGood;//商品单价更改
 	private Connection connection;
 	public GoodsDB(Connection connection){
 		try {
@@ -23,6 +24,7 @@ public class GoodsDB {
 			UpdateGood = connection.prepareStatement("update good set count = ? where id = ?");
 			UpdateGoodName = connection.prepareStatement("update good set name = ? where id = ?");
 			UpdateGoodPrice = connection.prepareStatement("update good set price = ? where id = ?");
+			DeleteGood = connection.prepareStatement("delete from good where id = ?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +36,7 @@ public class GoodsDB {
 			InsertGood.setString(2, name);
 			InsertGood.setInt(3, count);
 			InsertGood.setDouble(4, price);
-			int i = UpdateGood.executeUpdate();
+			int i = InsertGood.executeUpdate();
 			if(i > 0)
 				return true;
 			else
@@ -106,11 +108,27 @@ public class GoodsDB {
 		}
 	}
 	
+	public boolean updateGoodNum(String id, int num){//直接除商品数量
+		try {
+			UpdateGood.setString(2, id);
+			UpdateGood.setInt(1, num);
+			int i = UpdateGood.executeUpdate();
+			if(i > 0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean updateGoodName(String id, String name) {
 		try {
 			UpdateGoodName.setString(2,id);
-			UpdateGood.setString(1, name);
-			int i = UpdateGood.executeUpdate();
+			UpdateGoodName.setString(1, name);
+			int i = UpdateGoodName.executeUpdate();
 			if(i > 0)
 				return true;
 			else
@@ -124,9 +142,24 @@ public class GoodsDB {
 	
 	public boolean updateGoodPrice(String id, double p) {
 		try {
-			UpdateGoodName.setString(2, id);
-			UpdateGood.setDouble(1, p);
-			int i = UpdateGood.executeUpdate();
+			UpdateGoodPrice.setString(2, id);
+			UpdateGoodPrice.setDouble(1, p);
+			int i = UpdateGoodPrice.executeUpdate();
+			if(i > 0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteGood(String id) {
+		try {
+			DeleteGood.setString(1, id);
+			int i = DeleteGood.executeUpdate();
 			if(i > 0)
 				return true;
 			else

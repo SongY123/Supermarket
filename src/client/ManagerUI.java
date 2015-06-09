@@ -1003,15 +1003,25 @@ public class ManagerUI extends JFrame{
 						editnum = numText.getText();
 						editprice = priceText.getText();
 						editname = nameText.getText();
-						if(!(editid.equals("")||editnum.equals("")||editprice.equals("")||editname.equals(""))) {
+						if(!(editid.equals(""))) {
 							Datas sendd = new Datas();
 							Datas recvd = new Datas();
 							Goods goods = new Goods();
 							//send to sever
-							goods.setGoodid(editid);;
-							goods.setCount(Integer.parseInt(editnum));
+							goods.setGoodid(editid);
+							if(!editnum.equals("")) {
+								goods.setCount(Integer.parseInt(editnum));
+							}
+							else {
+								goods.setCount(-1);
+							}
 							goods.setName(editname);
-							goods.setPrice(Double.parseDouble(editprice));
+							if(!editprice.equals("")) {
+								goods.setPrice(Double.parseDouble(editprice));
+							}
+							else {
+								goods.setPrice(-1.0);
+							}
 							sendd.setGoods(goods);
 							sendd.setFlags(DEFINE.SYS_EDIT_GOOD);
 							try {

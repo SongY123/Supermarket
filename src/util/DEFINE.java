@@ -44,7 +44,7 @@ public class DEFINE {
 	public static final String SYS_EDIT_GOOD_SUCCESS="EDITGOODSUCCESS"; //修改商品成功
 	public static final String SYS_EDIT_GOOD_FAIL="EDITGOODFAIL"; //修改商品失败
 	
-	public static final String SYS_ADD_TRADE="ADDTRADE"; //修改商品失败
+	public static final String SYS_ADD_TRADE="ADDTRADE"; //添加交易记录
 	/*
 	public static final String SYS_USER_MANAGER="MANAGER";//仓管权限
 	public static final String SYS_USER_SALER="SALER";//收银权限

@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Date;
 
 import database.EmployeeDB;
 import database.GoodsDB;
@@ -135,10 +136,15 @@ public class ServerThread extends Thread{
 						Datas tempdatas = new Datas();
 						if(goods.updateGood(goodid, -goodcount)) {
 							tempdatas.setFlags(DEFINE.SYS_RETURN_GOOD_SUCCESS);
+							String returnid = "return";
+							double price0 = goods.findGoodPrice(goodid);
+							double amount = -price0*goodcount;
+							Date d = new Date();						
+							trades.insertTrade(returnid, amount, d.toString());	
 						}
 						else {
 							tempdatas.setFlags(DEFINE.SYS_RETURN_GOOD_FAIL);
-						}
+						}					
 						tempdatas.setGoods(tempgood);
 						oos.writeObject(tempdatas);				
 					}
@@ -156,6 +162,44 @@ public class ServerThread extends Thread{
 						else {
 							tempdatas.setFlags(DEFINE.SYS_ADD_GOOD_FAIL);
 						}		
+						tempdatas.setGoods(tempgoods);
+						oos.writeObject(tempdatas);
+					}
+					else if(DEFINE.SYS_EDIT_GOOD.equals(datas.getFlags())) {
+						Goods tempgoods = new Goods();
+						tempgoods = datas.getGoods();
+						String goodid = tempgoods.getGoodid();
+						String goodname = tempgoods.getName();
+						int goodcount = tempgoods.getCount();
+						double goodprice = tempgoods.getPrice(); 
+						Datas tempdatas = new Datas();
+						tempdatas.setFlags(DEFINE.SYS_EDIT_GOOD_FAIL);
+						if(!goodname.equals("")) {
+							if(goods.updateGoodName(goodid, goodname))
+								tempdatas.setFlags(DEFINE.SYS_EDIT_GOOD_SUCCESS);
+						}
+						if(!(goodcount == -1)) {
+							if(goods.updateGoodNum(goodid, goodcount))
+								tempdatas.setFlags(DEFINE.SYS_EDIT_GOOD_SUCCESS);
+						}
+						if(goodprice+1.0>0) {
+							if(goods.updateGoodPrice(goodid, goodprice))
+								tempdatas.setFlags(DEFINE.SYS_EDIT_GOOD_SUCCESS);
+						}
+						tempdatas.setGoods(tempgoods);
+						oos.writeObject(tempdatas);
+					}
+					else if(DEFINE.SYS_DELETE_GOOD.equals(datas.getFlags())) {
+						Goods tempgoods = new Goods();
+						tempgoods = datas.getGoods();
+						Datas tempdatas = new Datas();
+						tempdatas.setFlags(DEFINE.SYS_DELETE_GOOD_FAIL);
+						String goodid = tempgoods.getGoodid();
+						if(!(goodid.equals(""))) {
+							if(goods.deleteGood(goodid)) {
+								tempdatas.setFlags(DEFINE.SYS_DELETE_GOOD_SUCCESS);
+							}								
+						}
 						tempdatas.setGoods(tempgoods);
 						oos.writeObject(tempdatas);
 					}
