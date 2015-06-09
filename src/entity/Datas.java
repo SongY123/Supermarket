@@ -13,6 +13,8 @@ public class Datas implements Serializable{
 	//private HashMap<Integer,Goods> map_goods=null;//商品列表
 	private User user=null;//用户信息
 	private Member member=null;//会员信息
+	private Trade trade=null;
+	
 	double cost;//消费金额
 	/*
 	public HashMap<Integer, Goods> getMap_goods() {
@@ -46,6 +48,13 @@ public class Datas implements Serializable{
 	}
 	public void setMember(Member member) {
 		this.member = member;
+	}
+	
+	public Trade getTrade() {
+		return trade;
+	}
+	public void setTrade(Trade trade) {
+		this.trade = trade;
 	}
 	
 }

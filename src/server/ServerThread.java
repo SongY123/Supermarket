@@ -121,6 +121,14 @@ public class ServerThread extends Thread{
 					else if(DEFINE.SYS_BALANCE.equals(datas.getFlags())){//账单
 						
 					}
+					else if(DEFINE.SYS_ADD_TRADE.equals(datas.getFlags())){//添加交易记录
+						String getid=datas.getTrade().getid();
+						double cost = datas.getTrade().getCost();
+						String getdate = datas.getTrade().getDate();
+						
+						trades.insertTrade(getid,cost,getdate);
+						
+					}
 					else if(DEFINE.SYS_RETURN_GOOD.equals(datas.getFlags())) { //退货申请
 						Goods tempgood = new Goods();
 						tempgood = datas.getGoods();

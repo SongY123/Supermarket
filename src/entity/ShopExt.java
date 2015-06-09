@@ -10,7 +10,7 @@ import util.Message;
 
 public class ShopExt {
 	private static double totalprice=0;//总金额
-	private static HashMap<Integer,Shop> map_shop=null;//存储购物信息
+	private static HashMap<Integer,Trade> map_shop=null;//存储购物信息
 	private static Member member=null;//会员信息
 	private static int uid=0;//收银员编号
 	private static String code="";//小票编号

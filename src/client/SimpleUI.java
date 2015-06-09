@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.*;
 
 import entity.Goods;
+import entity.Trade;
 import entity.User;
 import util.DEFINE;
 import entity.Datas;
@@ -439,6 +440,26 @@ System.out.println(currentmoney);
 							double changed = realmd-shouldmd;
 							String changes = String.format("%.2f", changed);
 							changeText.setText(changes);
+							
+							Datas sendd = new Datas();
+							Datas recvd = new Datas();
+							
+							Trade trade = new Trade();
+							trade.setid(customerInfo.getText());
+							trade.setCost(shouldmd);
+							Date d=new Date();
+							trade.setDate(d.toString());
+							
+							sendd.setTrade(trade);
+							sendd.setFlags("ADDTRADE");
+							
+							try {
+								outputToServer.writeObject(sendd);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 						}
 					}
 				}

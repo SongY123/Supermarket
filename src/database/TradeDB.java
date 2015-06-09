@@ -20,11 +20,11 @@ public class TradeDB {
 			e.printStackTrace();
 		}
 	}
-	void insertTrade(String Username,Double Sum,String Time){
+	public void insertTrade(String Username,Double Sum,String Time){
 		try {
 			InsertTrade.setString(1, Username);
-			InsertTrade.setDouble(2, Sum);
-			InsertTrade.setString(3, Time);
+			InsertTrade.setDouble(3, Sum);
+			InsertTrade.setString(2, Time);
 			InsertTrade.executeUpdate();//更新数据库
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

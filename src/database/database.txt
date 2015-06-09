@@ -16,7 +16,7 @@ online int(1) NOT NULL
 Trade
 CREATE TABLE Trade(
 id VARCHAR(8) NOT NULL REFERENCES user(id),
-time datetime NOT NULL,
+time VARCHAR(50) NOT NULL,
 money decimal(10,2),
 PRIMARY KEY(id,time)
 );
