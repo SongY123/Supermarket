@@ -93,14 +93,17 @@ public class ServerThread extends Thread{
 						good.setCount(getcount);
 						good.setGoodid(getid);
 						good.setPrice(goods.findGoodPrice(getid));
-						good.setName(goods.findGoodname(getid));
-						
+						if(goods.findGoodname(getid)!=null){
+							good.setName(goods.findGoodname(getid));
+						}
+						else
+							good.setName(getid+" is not exist!");
 						outdata.setGoods(good);
 						
 						oos.writeObject(outdata);
 						
 					}
-					else if(DEFINE.SYS_MEMBER_QUERY.equals(datas.getFlags())){
+					else if(DEFINE.SYS_MEMBER_QUERY.equals(datas.getFlags())){//≤È—Øª·‘±
 						String getid=datas.getUser().getUserid();
 						Datas outdata = new Datas();
 						User user = new User();
