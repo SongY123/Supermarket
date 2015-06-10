@@ -36,6 +36,7 @@ public class LoginUI extends JFrame {
 	public LoginUI() {
 		try {
 	        socket = new Socket("localhost", 8000);//·þÎñÆ÷¹Ì¶¨ip
+	        // 
 	        outputToServer = new ObjectOutputStream(socket.getOutputStream());
 	        inputFromServer = new ObjectInputStream(socket.getInputStream());
 	    }
